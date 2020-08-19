@@ -2,10 +2,69 @@ test_that("chk modifiers work", {
   ### chk_to_type
   int <- c(1L, 3L, NA)
   num <- c(1, 2, NA)
-  char <- c("a", NA)
+  char <- c("a")
+  char_na <- c("", NA)
 
   expect_identical(chk_to_type(int), "integer")
   expect_identical(chk_to_type(num), "numeric")
   expect_identical(chk_to_type(char), "character")
+  expect_identical(chk_to_type(char_na), "character")
+
+  ### chk_to_missing
+  expect_identical(chk_to_missing(int), "yes")
+  expect_identical(chk_to_missing(char), "no")
+  expect_identical(chk_to_missing(char_na), "yes")
+
+  ### chk_to_example integer
+  one_na <- c(1L, NA)
+  one <- c(1L)
+  two_na <- c(1L, 5L, NA)
+  two <- c(1L, 5L)
+  three_na <- c(1L, 2L, 5L, NA)
+  three <- c(1L, 2L, 5L)
+
+  expect_true(chk_to_example(one_na) %in% one_na)
+  expect_true(chk_to_example(one) == one)
+  expect_true(chk_to_example(two_na) %in% c(1:5, NA))
+  expect_true(chk_to_example(two) %in% 1:5)
+  expect_true(chk_to_example(three_na) %in% three_na)
+  expect_true(chk_to_example(three) %in% three)
+
+  ### chk_to_example char
+  one_na <- c("a", NA)
+  one <- c("a")
+  two_na <- c("a", "b", NA)
+  two <- c("a", "b")
+  three_na <- c("a", "b", "d", NA)
+  three <- c("a", "b", "d")
+
+  expect_true(chk_to_example(one_na) %in% one_na)
+  expect_true(chk_to_example(one) == one)
+  expect_true(chk_to_example(two_na) %in% two_na)
+  expect_true(chk_to_example(two) %in% two)
+  expect_true(chk_to_example(three_na) %in% three_na)
+  expect_true(chk_to_example(three) %in% three)
+
+  # numeric
+  one_na <- c(1, NA)
+  one <- c(1)
+  two_na <- c(1, 4.5, NA)
+  two <- c(1, 4.5)
+  three_na <- c(1, 4, 5, NA)
+  three <- c(1, 4, 5)
+
+  expect_true(chk_to_example(one_na) %in% one_na)
+  expect_true(chk_to_example(one) == one)
+  x <- chk_to_example(two_na)
+  expect_true((x >= 1 & x <= 4.5) | is.na(x))
+  x <- chk_to_example(two)
+  expect_true(x %in% x >= 1 & x <= 4.5)
+  expect_true(chk_to_example(three_na) %in% three_na)
+  expect_true(chk_to_example(three) %in% three)
+
+
+
+
+
 
 })
