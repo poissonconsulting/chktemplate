@@ -51,7 +51,7 @@ test_that("chk modifiers work", {
   two_na <- c(1, 4.5, NA)
   two <- c(1, 4.5)
   three_na <- c(1, 4, 5, NA)
-  three <- c(1, 4, 5)
+  three <- c(1, 4, 5, 6)
 
   expect_true(chk_to_example(one_na) %in% one_na)
   expect_true(chk_to_example(one) == one)
@@ -62,7 +62,15 @@ test_that("chk modifiers work", {
   expect_true(chk_to_example(three_na) %in% three_na)
   expect_true(chk_to_example(three) %in% three)
 
+  ### test chk_to_constraing
+  expect_identical(chk_to_constraint(c(1)), "any number")
+  expect_identical(chk_to_constraint(c(1L)), "any integer")
+  expect_identical(chk_to_constraint(c("a")), "any word")
 
+  expect_identical(chk_to_constraint(c("a", "b")), "one of 'a' or 'b'")
+  expect_identical(chk_to_constraint(c(1, 2, 3, 4)), "one of 1, 2, 3 or 4")
+  expect_identical(chk_to_constraint(c(1, 2, NA)), "number between 1 and 2")
+  expect_identical(chk_to_constraint(c(10L, 1L)), "integer between 1 and 10")
 
 
 

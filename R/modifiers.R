@@ -22,12 +22,21 @@ chk_to_example <- function(x){
   sample(x, 1)
 }
 
-chk_to_description <- function(x){
-
-}
-
 chk_to_constraint <- function(x){
-
+  y <- sort(rm_na(x))
+  type <- class(y)
+  type <- switch(type,
+                 "numeric" = "number",
+                 "character" = "word", type)
+  # if 2 values excluding NA return random within range
+  if(length(y) == 1)
+    return(any_p(type))
+  if(length(y) == 2){
+    if(type %in% c("integer", "number"))
+      return(between_p(type, y))
+  }
+  # all other cases
+  oneof_p(y)
 }
 
 

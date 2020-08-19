@@ -2,6 +2,18 @@ rm_na <- function(x){
   x[!is.na(x)]
 }
 
+any_p <- function(type){
+  p("any", type)
+}
+
+between_p <- function(type, y){
+  p(type, "between", err::cc_and(y))
+}
+
+oneof_p <- function(y){
+  p("one of", err::cc_or(y))
+}
+
 set_class <- function(x, class) {
   class(x) <- class
   x
