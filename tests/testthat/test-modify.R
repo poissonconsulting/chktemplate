@@ -1,3 +1,11 @@
 test_that("chk modifiers work", {
-  expect_equal(2 * 2, 4)
+  ### chk_to_type
+  int <- c(1L, 3L, NA)
+  num <- c(1, 2, NA)
+  char <- c("a", NA)
+
+  expect_identical(chk_to_type(int), "integer")
+  expect_identical(chk_to_type(num), "numeric")
+  expect_identical(chk_to_type(char), "character")
+
 })
