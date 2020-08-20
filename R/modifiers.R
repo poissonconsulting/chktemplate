@@ -1,10 +1,21 @@
-#' Convert chk to type
+#' Convert chk row to character vector of types
 #'
-#' @param x A vector of the check values (e.g. c(1, 2, NA)).
-#' @return A character string of the type.
+#' @param x A data.frame with chk values for each column.
+#' @return A character string of the types.
 #' @export
-chk_to_type <- function(x){
-  class(x)
+chkrow_to_type <- function(x){
+  x <- chkrow_to_expression(x)
+  sapply(x, class)
+}
+
+#' Convert chk row to list of expressions
+#'
+#' @param x A data.frame with chk values for each column.
+#' @return A character string of the types.
+#' @export
+chkrow_to_expression <- function(x){
+  check_template_chkrow(x)
+  sapply(row_char(x), parse_eval, USE.NAMES = FALSE, simplify = TRUE)
 }
 
 chk_to_missing <- function(x){

@@ -1,6 +1,6 @@
 test_that("template modification works", {
   x <- data.frame(name = "chk", a = "'GA'", b = "c(1, 2)")
-  expr <- row_expr(x[x$name == "chk",])
+  expr <- chkrow_to_expression(x[x$name == "chk",])
   expect_identical(expr, list("GA", c(1, 2)))
 
   template <- readxl::read_excel(system.file("extdata/demo_template.xlsx", package = "chktemplate"))

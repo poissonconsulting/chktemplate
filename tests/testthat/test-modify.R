@@ -1,16 +1,14 @@
 test_that("chk modifiers work", {
   ### chk_to_type
+  df <- data.frame(name = "chk", col1 = "c(1L, 2L)", col2 = "c('')", col3 = "c(1, NA)")
+  expect_identical(chkrow_to_type(df), c("integer", "character", "numeric"))
+
+  ### chk_to_missing
   int <- c(1L, 3L, NA)
   num <- c(1, 2, NA)
   char <- c("a")
   char_na <- c("", NA)
 
-  expect_identical(chk_to_type(int), "integer")
-  expect_identical(chk_to_type(num), "numeric")
-  expect_identical(chk_to_type(char), "character")
-  expect_identical(chk_to_type(char_na), "character")
-
-  ### chk_to_missing
   expect_identical(chk_to_missing(int), "yes")
   expect_identical(chk_to_missing(char), "no")
   expect_identical(chk_to_missing(char_na), "yes")
