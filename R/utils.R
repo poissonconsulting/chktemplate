@@ -40,6 +40,10 @@ row_char <- function(x){
 
 parse_eval <- function(x) eval(parse(text = x))
 
+row_expr <- function(x){
+  sapply(row_char(x), parse_eval, USE.NAMES = FALSE, simplify = TRUE)
+}
+
 sys_time <- function() {
   time <- Sys.time()
   attr(time, "tzone") <- "UTC"

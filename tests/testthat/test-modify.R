@@ -1,7 +1,7 @@
 test_that("chk modifiers work", {
   ### chk_to_type
-  df <- data.frame(name = "chk", col1 = "c(1L, 2L)", col2 = "c('')", col3 = "c(1, NA)")
-  expect_identical(chkrow_to_type(df), c("integer", "character", "numeric"))
+  template <- readxl::read_excel(system.file("extdata/demo_template.xlsx", package = "chktemplate"))
+  expect_identical(chkrow_to_type(template[c(1, 2, 10, 16)]), c("integer", "character", "numeric"))
 
   ### chk_to_missing
   int <- c(1L, 3L, NA)

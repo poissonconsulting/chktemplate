@@ -9,7 +9,7 @@ template_modify <- function(template){
   check_template(template)
 
   x <- as.data.frame(template[template$name == "description",])
-  chk_vals <- chkrow_to_expression(template[template$name == "chk", ])
+  chk_vals <- chkrow_to_expression(template)
 
   # examples
   example <- sapply(chk_vals, chk_to_example)
