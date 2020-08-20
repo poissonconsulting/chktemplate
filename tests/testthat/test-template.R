@@ -1,15 +1,12 @@
 test_that("template modification works", {
-  x <- data.frame(a = "'GA'", b = "c(1, 2)") %>%
-    set_rownames("chk")
-  expr <- row_expr(x["chk",])
+  x <- data.frame(name = "chk", a = "'GA'", b = "c(1, 2)")
+  expr <- row_expr(x[x$name == "chk",])
   expect_identical(expr, list("GA", c(1, 2)))
 
-  template <- as.data.frame(readxl::read_excel(system.file("extdata/demo_template.xlsx", package = "chktemplate")))
-  row.names(template) <- template$outing
-  template$outing <- NULL
+  template <- readxl::read_excel(system.file("extdata/demo_template.xlsx", package = "chktemplate"))
 
   x <- template_modify(template)
-  expect_identical(row.names(x), c("example", "description", "constraint", "unique", "missing_allowed"))
+  expect_identical(x$name, c("description", "example", "constraint", "missing_allowed", "unique"))
   expect_identical(colnames(x), colnames(template))
 
 })

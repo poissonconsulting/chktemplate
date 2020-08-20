@@ -7,30 +7,29 @@
 #' @export
 template_modify <- function(template){
   check_template(template)
-  x <- template[0,]
 
-  chk_vals <- row_expr(template["chk", ])
+  x <- as.data.frame(template[template$name == "description",])
+  chk_vals <- row_expr(template[template$name == "chk", ])
 
   # examples
   example <- sapply(chk_vals, chk_to_example)
-  if("example" %in% row.names(template)){
-    replace <- row_char(template["example",])
+  if("example" %in% template$name){
+    replace <- row_char(template[template$name == "example",])
     replace_i <- which(!is.na(replace))
     for(i in replace_i){
       example[i] <- replace[i]
     }
   }
-  template["example",] <- example
+  x <- add_row(x, c("example", example))
 
   # constraints
-  template["constraint",] <- sapply(chk_vals, chk_to_constraint)
+  x <- add_row(x, c("constraint", sapply(chk_vals, chk_to_constraint)))
 
   # missing
-  template["missing_allowed",] <- sapply(chk_vals, chk_to_missing)
+  x <- add_row(x, c("missing_allowed", sapply(chk_vals, chk_to_missing)))
 
   # unique
-  template["unique",] <- lgls_to_yesno(row_char(template["unique",]))
+  x <- add_row(x, c("unique", lgls_to_yesno(row_char(template[template$name == "unique",]))))
 
-  template[c("example", "description", "constraint", "unique", "missing_allowed"),]
-
+  x
 }

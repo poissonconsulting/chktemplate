@@ -14,6 +14,11 @@ oneof_p <- function(y){
   p("one of", err::cc_or(y))
 }
 
+add_row <- function(x, y){
+  x[nrow(x) + 1,] <- y
+  x
+}
+
 set_class <- function(x, class) {
   class(x) <- class
   x
@@ -30,7 +35,7 @@ set_rownames <- function(x, names) {
 }
 
 row_char <- function(x){
-  as.character(as.vector(x))
+  as.character(as.vector(x))[-1]
 }
 
 parse_eval <- function(x) eval(parse(text = x))
