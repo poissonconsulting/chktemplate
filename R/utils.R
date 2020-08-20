@@ -58,8 +58,6 @@ str_extract_all <- function(x, y) regmatches(x, gregexpr(y, x))
 # from https://recology.info/2018/10/limiting-dependencies/
 `%||%` <- function(x, y) if (is.null(x) || length(x) == 0) y else x
 
-rinteger <- function(n = 1) as.integer(stats::runif(n, -.max_integer, .max_integer))
-
 last <- function(x) x[length(x)]
 
 p <- function(...){

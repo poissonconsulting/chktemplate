@@ -1,4 +1,8 @@
-### all chk_to_ functions accept a check vector, e.g. c(0L, 23L, NA)
+#' Convert chk to type
+#'
+#' @param x A vector of the check values (e.g. c(1, 2, NA)).
+#' @return A character string of the type.
+#' @export
 chk_to_type <- function(x){
   class(x)
 }
