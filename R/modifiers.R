@@ -39,4 +39,16 @@ chk_to_constraint <- function(x){
   oneof_p(y)
 }
 
+lgl_to_yesno <- function(x){
+  if(x == TRUE & !is.na(x))
+    return("yes")
+  "no"
+}
+
+lgls_to_yesno <- function(x){
+  sapply(x, lgl_to_yesno)
+}
+
+
+
 

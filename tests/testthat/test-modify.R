@@ -72,7 +72,7 @@ test_that("chk modifiers work", {
   expect_identical(chk_to_constraint(c(1, 2, NA)), "number between 1 and 2")
   expect_identical(chk_to_constraint(c(10L, 1L)), "integer between 1 and 10")
 
-
-
+  ### test lgl_to_yesno
+  expect_identical(lgls_to_yesno(c(TRUE, FALSE, NA)), c("yes", "no", "no"))
 
 })

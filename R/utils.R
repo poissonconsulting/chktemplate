@@ -24,6 +24,21 @@ set_names <- function(x, names) {
   x
 }
 
+set_rownames <- function(x, names) {
+  row.names(x) <- names
+  x
+}
+
+row_char <- function(x){
+  as.character(as.vector(x))
+}
+
+parse_eval <- function(x) eval(parse(text = x))
+
+row_expr <- function(x){
+  sapply(row_char(x), parse_eval, USE.NAMES = FALSE, simplify = TRUE)
+}
+
 sys_time <- function() {
   time <- Sys.time()
   attr(time, "tzone") <- "UTC"
