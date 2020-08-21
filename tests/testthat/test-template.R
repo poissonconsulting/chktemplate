@@ -3,7 +3,7 @@ test_that("template modification works", {
   expr <- row_expr(x[x$name == "chk",])
   expect_identical(expr, list("GA", c(1, 2)))
 
-  template <- readxl::read_excel(system.file("extdata/demo_template.xlsx", package = "chktemplate"))
+  template <- demo_template$outing
   expr <- chkrow_to_expression(template)
   expect_identical(names(expr), names(template)[-1])
   expect_identical(expr[[1]], c(0L, 1000L))

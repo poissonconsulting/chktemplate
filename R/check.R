@@ -1,6 +1,11 @@
-check_template <- function(template){
-  chk_data(template)
-  chk_superset(names(template), "name")
-  x <- template$name
-  chk_superset(template$name, c("description", "unique", "chk"))
+#' Check that template is valid.
+#'
+#' @param x A data.frame of the template.
+#' @return An invisible data.frame.
+#' @export
+check_template <- function(x){
+  chk_data(x)
+  chk_superset(names(x), "name")
+  chk_superset(x$name, c("description", "unique", "chk"))
+  invisible(x)
 }
