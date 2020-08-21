@@ -29,7 +29,9 @@ template_modify <- function(template){
   x <- add_row(x, c("missing_allowed", sapply(chk_vals, chk_to_missing)))
 
   # unique
-  x <- add_row(x, c("unique", lgls_to_yesno(row_char(template[template$name == "unique",]))))
+  if("unique" %in% template$name){
+    x <- add_row(x, c("unique", lgls_to_yesno(row_char(template[template$name == "unique",]))))
+  }
 
   x
 }
