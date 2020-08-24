@@ -63,7 +63,7 @@ test_that("chk modifiers work", {
   ### test chk_to_constraing
   expect_identical(chk_to_constraint(c(1)), "any number")
   expect_identical(chk_to_constraint(c(1L)), "any integer")
-  expect_identical(chk_to_constraint(c("a")), "any word")
+  expect_identical(chk_to_constraint(c("a")), "any word(s)")
 
   expect_identical(chk_to_constraint(c("a", "b")), "one of 'a' or 'b'")
   expect_identical(chk_to_constraint(c(1, 2, 3, 4)), "one of 1, 2, 3 or 4")
