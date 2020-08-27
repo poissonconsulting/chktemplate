@@ -5,7 +5,7 @@
 #' @param template A data.frame of the template with row names including 'description', 'chk', 'unique' and optionally, 'example'.
 #' @return The modified data.frame.
 #' @export
-template_modify <- function(template){
+template_human <- function(template){
   check_template(template)
 
   x <- as.data.frame(template[template$name == "description",])

@@ -3,7 +3,7 @@
 export(check_template)
 export(chkrow_to_expression)
 export(chkrow_to_type)
-export(template_modify)
+export(template_human)
 import(chk)
 import(lifecycle)
 import(magrittr)
