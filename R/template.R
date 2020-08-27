@@ -33,5 +33,5 @@ template_human <- function(template){
     x <- add_row(x, c("unique", lgls_to_yesno(row_char(template[template$name == "unique",]))))
   }
 
-  x
+  tibble::as_tibble(x)
 }
