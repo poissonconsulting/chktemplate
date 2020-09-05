@@ -24,12 +24,28 @@ Modify a `shinyupload` template to human-readable format.
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/poissonconsulting/chktemplate) with:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("poissonconsulting/chktemplate")
 ```
+
+## Demonstration
+
+`chktemplate` is an R package of utility functions. 
+It is designed to be used in conjunction with the `shinyupload2` package.
+
+Consider the demonstration template - each data frame is converted into human readable format using the 
+`template_human()` function.
+
+```{r}
+library(chktemplate)
+library(tibble)
+chktemplate::demo_template$outing
+chktemplate::template_human(chktemplate::demo_template$outing)
+```
+
 ## Code of Conduct
 
-Please note that the chktemplate project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the `chktemplate` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
