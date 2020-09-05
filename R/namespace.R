@@ -1,3 +1,3 @@
-#' @import chk lifecycle magrittr
+#' @import chk lifecycle
 #' @importFrom stats runif
 NULL

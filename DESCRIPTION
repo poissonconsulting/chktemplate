@@ -18,7 +18,6 @@ Imports:
     chk,
     err,
     lifecycle,
-    magrittr,
     tibble
 Suggests:
     covr,
@@ -27,4 +26,4 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9000
