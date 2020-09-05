@@ -2,7 +2,8 @@
 #'
 #' Modify template to human-readable format.
 #'
-#' @param template A data.frame of the template with row names including 'description', 'chk', 'unique' and optionally, 'example'.
+#' @param template A data.frame of the template with row names
+#' including 'description', 'chk', 'unique' and optionally, 'example'.
 #' @return The modified data.frame.
 #' @export
 template_human <- function(template) {
@@ -30,7 +31,8 @@ template_human <- function(template) {
 
   # unique
   if ("unique" %in% template$name) {
-    x <- add_row(x, c("unique", lgls_to_yesno(row_char(template[template$name == "unique", ]))))
+    lgls <- lgls_to_yesno(row_char(template[template$name == "unique", ]))
+    x <- add_row(x, c("unique", lgls))
   }
 
   tibble::as_tibble(x)

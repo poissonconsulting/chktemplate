@@ -7,7 +7,9 @@
 chkrow_to_expression(x)
 }
 \arguments{
-\item{x}{A data.frame with chk values for each column. Data.frame must have a column called 'name' and a value of 'chk' within that column corresponding to the row of chk values.}
+\item{x}{A data.frame with chk values for each column.
+Data.frame must have a column called 'name' and a value of 'chk'
+within that column corresponding to the row of chk values.}
 }
 \value{
 A named list of the chk values by column.

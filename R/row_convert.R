@@ -10,7 +10,9 @@ chkrow_to_type <- function(x) {
 
 #' Convert chk row to list of expressions
 #'
-#' @param x A data.frame with chk values for each column. Data.frame must have a column called 'name' and a value of 'chk' within that column corresponding to the row of chk values.
+#' @param x A data.frame with chk values for each column.
+#' Data.frame must have a column called 'name' and a value of 'chk'
+#' within that column corresponding to the row of chk values.
 #' @return A named list of the chk values by column.
 #' @export
 chkrow_to_expression <- function(x) {

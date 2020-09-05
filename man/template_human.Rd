@@ -7,7 +7,8 @@
 template_human(template)
 }
 \arguments{
-\item{template}{A data.frame of the template with row names including 'description', 'chk', 'unique' and optionally, 'example'.}
+\item{template}{A data.frame of the template with row names
+including 'description', 'chk', 'unique' and optionally, 'example'.}
 }
 \value{
 The modified data.frame.

@@ -9,6 +9,7 @@ test_that("template modification works", {
   expect_identical(expr[[1]], c(0L, 1000L))
 
   x <- template_human(template)
-  expect_identical(x$name, c("description", "example", "constraint", "missing_allowed", "unique"))
+  expect_identical(x$name, c("description", "example", "constraint",
+                             "missing_allowed", "unique"))
   expect_identical(colnames(x), colnames(template))
 })
