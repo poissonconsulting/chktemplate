@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/poissonconsulting/chktemplate/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/chktemplate?branch=master)
 <!-- badges: end -->
 
 Modify a `shinyupload` template to human-readable format.

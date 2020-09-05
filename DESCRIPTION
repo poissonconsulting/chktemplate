@@ -2,24 +2,29 @@ Package: chktemplate
 Title: Modify shinyupload Template to Readable Format
 Version: 0.0.0.9000
 Authors@R: 
-    c(
-    person("Sebastian", "Dalgarno", , "seb@poissonconsulting.ca", c("aut", "cre"), comment = c(ORCID = "0000-0002-3658-4517")),
-    person("Poisson Consulting", role = c("cph", "fnd"))
-    )
-Description: Modify a shinyupload template to human-readable format. 
+    c(person(given = "Sebastian",
+             family = "Dalgarno",
+             role = c("aut", "cre"),
+             email = "seb@poissonconsulting.ca",
+             comment = c(ORCID = "0000-0002-3658-4517")),
+      person(given = "Poisson Consulting",
+             role = c("cph", "fnd")))
+Description: Modify a shinyupload template to human-readable
+    format.
 License: file LICENSE
+Depends: 
+    R (>= 4.0)
+Imports: 
+    chk,
+    err,
+    lifecycle,
+    magrittr,
+    tibble
+Suggests:
+    covr,
+    readxl,
+    testthat
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests:
-    testthat,
-    readxl
-Depends: 
-    R (>= 2.10)
-Imports: 
-    chk,
-    magrittr,
-    lifecycle,
-    err,
-    tibble
