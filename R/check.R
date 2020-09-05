@@ -7,6 +7,7 @@ check_template <- function(x) {
   chk_data(x)
   chk_superset(names(x), "name")
   chk_superset(x$name, c("description", "pkey", "chk"),
-               x_name = "template column names")
+    x_name = "template column names"
+  )
   invisible(x)
 }

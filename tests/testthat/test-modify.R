@@ -1,8 +1,10 @@
 test_that("chk modifiers work", {
   ### chk_to_type
   template <- demo_template$outing
-  expect_identical(chkrow_to_type(template[c(1, 2, 10, 16)]),
-                   c("integer", "character", "numeric"))
+  expect_identical(
+    chkrow_to_type(template[c(1, 2, 10, 16)]),
+    c("integer", "character", "numeric")
+  )
 
   ### chk_to_missing
   int <- c(1L, 3L, NA)
