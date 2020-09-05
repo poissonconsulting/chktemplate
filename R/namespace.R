@@ -1,3 +1,3 @@
-#' @import chk lifecycle
+#' @import chk
 #' @importFrom stats runif
 NULL

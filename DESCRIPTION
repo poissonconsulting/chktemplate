@@ -16,8 +16,8 @@ Depends:
     R (>= 4.0)
 Imports: 
     chk,
-    lifecycle,
-    tibble
+    tibble,
+    stats
 Suggests:
     covr,
     readxl,
