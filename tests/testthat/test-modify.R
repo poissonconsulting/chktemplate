@@ -72,5 +72,4 @@ test_that("chk modifiers work", {
 
   ### test lgl_to_yesno
   expect_identical(lgls_to_yesno(c(TRUE, FALSE, NA)), c("yes", "no", "no"))
-
 })

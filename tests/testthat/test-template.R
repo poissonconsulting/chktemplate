@@ -1,6 +1,6 @@
 test_that("template modification works", {
   x <- data.frame(name = "chk", a = "'GA'", b = "c(1, 2)")
-  expr <- row_expr(x[x$name == "chk",])
+  expr <- row_expr(x[x$name == "chk", ])
   expect_identical(expr, list("GA", c(1, 2)))
 
   template <- demo_template$outing
@@ -11,5 +11,4 @@ test_that("template modification works", {
   x <- template_human(template)
   expect_identical(x$name, c("description", "example", "constraint", "missing_allowed", "unique"))
   expect_identical(colnames(x), colnames(template))
-
 })
