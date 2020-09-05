@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R build status](https://github.com/poissonconsulting/chktemplate/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions)
-[![Codecov test coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/chktemplate?branch=master)
+[![codecov](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg?token=FR6YQNTZF3)](https://codecov.io/gh/poissonconsulting/chktemplate)
 <!-- badges: end -->
 
 Modify a `shinyupload` template to human-readable format.
@@ -43,9 +43,12 @@ Consider the demonstration template - each data frame is converted into human re
 library(chktemplate)
 library(tibble)
 chktemplate::demo_template$outing
+set.seed(42)
 chktemplate::template_human(chktemplate::demo_template$outing)
 ```
 
 ## Code of Conduct
 
-Please note that the `chktemplate` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the `chktemplate` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). 
+By contributing to this project, you agree to abide by its terms.
+

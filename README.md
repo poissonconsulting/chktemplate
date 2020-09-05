@@ -7,8 +7,7 @@
 
 [![R build
 status](https://github.com/poissonconsulting/chktemplate/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg)](https://codecov.io/gh/poissonconsulting/chktemplate?branch=master)
+[![codecov](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg?token=FR6YQNTZF3)](https://codecov.io/gh/poissonconsulting/chktemplate)
 <!-- badges: end -->
 
 Modify a `shinyupload` template to human-readable format.
@@ -46,12 +45,13 @@ chktemplate::demo_template$outing
 #> # … with 9 more variables: boat <chr>, guide <chr>, crew1 <chr>, crew2 <chr>,
 #> #   crew_gps <chr>, crew_camera <chr>, watertemp_degc <chr>, rod_count <chr>,
 #> #   comment <chr>
+set.seed(42)
 chktemplate::template_human(chktemplate::demo_template$outing)
 #> # A tibble: 5 x 18
 #>   name  outing_id year  month day   hour_start minute_start hour_end minute_end
 #>   <chr> <chr>     <chr> <chr> <chr> <chr>      <chr>        <chr>    <chr>     
 #> 1 desc… unique I… year… mont… day … hour of o… minute of o… hour of… minute of…
-#> 2 exam… 1         2014  4     13    20         0            12       28        
+#> 2 exam… 1         2064  9     10    3          17           16       46        
 #> 3 cons… integer … inte… inte… inte… integer b… integer bet… integer… integer b…
 #> 4 miss… no        no    no    no    no         no           no       no        
 #> 5 uniq… yes       no    no    no    no         no           no       no        
