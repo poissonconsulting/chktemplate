@@ -7,11 +7,11 @@ any_p <- function(type){
 }
 
 between_p <- function(type, y){
-  p(type, "between", err::cc_and(y))
+  p(type, "between", cc(y, " and "))
 }
 
 oneof_p <- function(y){
-  p("one of", err::cc_or(y))
+  p("one of", cc(y, " or "))
 }
 
 add_row <- function(x, y){
