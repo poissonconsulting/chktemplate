@@ -1,8 +1,8 @@
 Package: chktemplate
 Title: Modify shinyupload Template to Readable Format
 Version: 0.0.0.9001
-Authors@R: c(
-    person(given = "Sebastian",
+Authors@R: 
+    c(person(given = "Sebastian",
              family = "Dalgarno",
              role = c("aut", "cre"),
              email = "seb.dalgarno@gmail.com",
