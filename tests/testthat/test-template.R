@@ -18,16 +18,16 @@ test_that("template modification works", {
 
 test_that("test template", {
 
-  template <- shinyupload2::read_template(
+  template <-readxl::read_excel(
     system.file(
       "extdata/template_test.xlsx",
       package = "chktemplate"
     )
   )
 
-  expect_warning(chktemplate::template_human(template[[1]]), regexp = NA)
+  expect_warning(chktemplate::template_human(template), regexp = NA)
 
-  human_temp <- chktemplate::template_human(template[[1]])
+  human_temp <- chktemplate::template_human(template)
 
   expect_equal(
     human_temp$Year[human_temp$name == "constraint"],
