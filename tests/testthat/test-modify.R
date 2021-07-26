@@ -1,6 +1,6 @@
 test_that("chk modifiers work", {
   ### chk_to_type
-  template <- demo_template$outing
+  template <- demo_template_fish_exploit$outing
   expect_identical(
     chkrow_to_type(template[c(1, 2, 10, 16)]),
     c("integer", "character", "numeric")
