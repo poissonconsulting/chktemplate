@@ -1,5 +1,6 @@
 #### Saving RDA files from extdata ####
-path <- system.file("extdata/demo_template.xlsx", package = "chktemplate")
+path <- system.file("extdata/demo_template_fish_exploit.xlsx",
+                    package = "chktemplate")
 sheets <- readxl::excel_sheets(path)
 demo_template_fish_exploit <- lapply(
   sheets,
@@ -9,6 +10,7 @@ names(demo_template_fish_exploit) <- sheets
 usethis::use_data(demo_template_fish_exploit, overwrite = TRUE)
 
 
-path <- system.file("extdata/data_entry.csv", package = "chktemplate")
+path <- system.file("extdata/demo_template_data_entry.csv",
+                    package = "chktemplate")
 demo_template_data_entry <- read.csv(path)
 usethis::use_data(demo_template_data_entry, overwrite = TRUE)
