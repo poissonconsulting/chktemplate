@@ -1,4 +1,4 @@
-test_that("chk modifiers work", {
+test_that("chk modifiers work for fish exploit template", {
   ### chk_to_type
   template <- demo_template_fish_exploit$outing
   expect_identical(

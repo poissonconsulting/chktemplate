@@ -1,4 +1,4 @@
-test_that("template modification works", {
+test_that("template modification works fish exploit", {
   x <- data.frame(name = "chk", a = "'GA'", b = "c(1, 2)")
   expr <- row_expr(x[x$name == "chk", ])
   expect_identical(expr, list("GA", c(1, 2)))
@@ -57,6 +57,33 @@ test_that("test template", {
   expect_equal(
     human_temp$start_second[human_temp$name == "constraint"],
     "integer between 0 and 59"
+  )
+
+})
+
+test_that("chk modifiers work for data entry template", {
+  ### chk_to_type
+  template <- demo_template_data_entry
+
+  expect_identical(
+    chkrow_to_type(template[c(1, 2, 3, 5)]),
+    c("character", "integer", "character")
+  )
+
+  expect_identical(template$name, c("label", "field", "chk", "description"))
+
+  expect_identical(
+    as.vector(
+      unlist(
+        template[1,]
+      )
+    ),
+    c("label", "Date", "Tag Number 1", "Tag Number 2", "Harvested", "Comments")
+  )
+
+  expect_identical(
+    template$harvested[4],
+    "Was the fish harvested? Answers include either yes or no."
   )
 
 })
