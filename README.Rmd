@@ -43,9 +43,9 @@ Consider the demonstration template - each data frame is converted into human re
 ```{r}
 library(chktemplate)
 library(tibble)
-chktemplate::demo_template$outing
+chktemplate::demo_template_fish_exploit$outing
 set.seed(42)
-chktemplate::template_human(chktemplate::demo_template$outing)
+chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing)
 ```
 
 ## Code of Conduct
