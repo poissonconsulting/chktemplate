@@ -7,4 +7,8 @@
 #'   \item{recapture}{recapture table}
 #'   ...
 #' }
-"demo_template"
+"demo_template_fish_exploit"
+
+#' Demo template based on data entry upload
+#'
+"demo_template_data_entry"
