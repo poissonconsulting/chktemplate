@@ -5,7 +5,7 @@
 \alias{demo_template_data_entry}
 \title{Demo template based on data entry upload}
 \format{
-An object of class \code{data.frame} with 5 rows and 6 columns.
+An object of class \code{data.frame} with 4 rows and 6 columns.
 }
 \usage{
 demo_template_data_entry
