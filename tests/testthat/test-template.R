@@ -83,7 +83,7 @@ test_that("chk modifiers work for data entry template", {
 
   expect_identical(
     template$harvested[4],
-    "Was the fish harvested? Answers include either yes or no."
+    "Was the fish harvested? Answers include yes or no."
   )
 
 })
