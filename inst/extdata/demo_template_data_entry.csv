@@ -1,5 +1,0 @@
-﻿name,date,tag_1,tag_2,harvested,comment
-label,Date,Tag Number 1,Tag Number 2,Harvested,Comments
-field,date,numeric,numeric,text,textarea
-chk,"c("""")","c(1L, NA)","c(1L, NA)","c(""yes"", ""yes"", ""no"")","c("""", NA)"
-description,Date fish was caught,Answer can be numbers or blank.,Answer can be numbers or blank.,Was the fish harvested? Answers include yes or no.,Comments about the capture.
