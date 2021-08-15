@@ -12,3 +12,7 @@
 #' Demo template based on data entry upload
 #'
 "demo_template_data_entry"
+
+#' Demo template based on logger data
+#'
+"demo_template_logger"
