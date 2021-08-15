@@ -13,6 +13,6 @@
 #'
 "demo_template_data_entry"
 
-#' Demo template based on logger data
+#' Demo template based on logger site info
 #'
 "demo_template_logger"

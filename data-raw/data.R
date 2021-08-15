@@ -15,7 +15,8 @@ path <- system.file("extdata/demo-template-data-entry.csv",
 demo_template_data_entry <- read.csv(path)
 usethis::use_data(demo_template_data_entry, overwrite = TRUE)
 
+
 path <- system.file("extdata/demo-template-logger.csv",
                     package = "chktemplate")
-demo_template_data_entry <- read.csv(path)
-usethis::use_data(demo_template_data_entry, overwrite = TRUE)
+demo_template_logger<- read.csv(path)
+usethis::use_data(demo_template_logger, overwrite = TRUE)

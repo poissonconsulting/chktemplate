@@ -87,3 +87,11 @@ test_that("chk modifiers work for data entry template", {
   )
 
 })
+
+test_that("chk modifiers work for logger template", {
+  template <- demo_template_logger
+  expect_identical(colnames(template), c("Sites", "X", "Y"))
+  expect_identical(template$Sites[1], "Demo Site")
+  expect_equal(template$X[1], -132.282245)
+  expect_equal(template$Y[1], 53.352985)
+})
