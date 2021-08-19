@@ -9,10 +9,22 @@
 #' }
 "demo_template_fish_exploit"
 
+
 #' Demo template based on data entry upload
 #'
 "demo_template_data_entry"
 
+
 #' Demo template based on logger site info
 #'
 "demo_template_logger"
+
+
+#' Demo template for lines in the historic data module
+#'
+"demo_template_lines_historic"
+
+
+#' Demo template for points in the historic data module
+#'
+"demo_template_points_historic"
