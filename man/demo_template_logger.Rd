@@ -3,7 +3,7 @@
 \docType{data}
 \name{demo_template_logger}
 \alias{demo_template_logger}
-\title{Demo template based on data entry upload}
+\title{Demo template based on logger site info}
 \format{
 An object of class \code{data.frame} with 1 rows and 3 columns.
 }
@@ -11,6 +11,6 @@ An object of class \code{data.frame} with 1 rows and 3 columns.
 demo_template_logger
 }
 \description{
-Demo template based on data entry upload
+Demo template based on logger site info
 }
 \keyword{datasets}
