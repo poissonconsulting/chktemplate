@@ -25,14 +25,21 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install Dependencies
         run: |
-          install.packages(c('remotes', 'rmarkdown'))
+          install.packages(c('remotes', 'rmarkdown')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+
       - name: Render readme
         run: |
           rmarkdown::render("README.Rmd")
         shell: Rscript {0}
+
       - name: Commit README.md
         run: |
           git add README.md
