@@ -37,7 +37,7 @@ jobs:
 
       - name: Build package
         run: |
-          devtools::build()
+          devtools::install()
         shell: Rscript {0}
 
       - name: Render readme
