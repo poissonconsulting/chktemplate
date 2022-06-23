@@ -13,8 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-**testing*
-
 # chktemplate
 
 <!-- badges: start -->
