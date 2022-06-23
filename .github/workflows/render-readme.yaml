@@ -48,4 +48,3 @@ jobs:
           status: ${{ job.status }}
           author_name: "github action: ${{github.workflow}}"
           fields: repo, ref, commit, author, message
-
