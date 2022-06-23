@@ -40,7 +40,6 @@ jobs:
           devtools::build()
         shell: Rscript {0}
 
-
       - name: Render readme
         run: |
           rmarkdown::render("README.Rmd")
