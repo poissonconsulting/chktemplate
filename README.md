@@ -7,11 +7,13 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/chktemplate/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions)
-[![codecov](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg?token=FR6YQNTZF3)](https://codecov.io/gh/poissonconsulting/chktemplate)
+[![R-CMD-check](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate?branch=main)
 <!-- badges: end -->
 
-Modify a `shinyupload` template to human-readable format.
+Work with a Shiny templates by turning them into human-readable format
+or confirm the data follows the template requirements.
 
 ## Installation
 
@@ -25,41 +27,34 @@ remotes::install_github("poissonconsulting/chktemplate")
 
 ## Demonstration
 
-`chktemplate` is an R package of utility functions. It is designed to be
-used in conjunction with the `shinyupload2` package.
+### Convert Template to be Human Readable
 
-Consider the demonstration template - each data frame is converted into
-human readable format using the `template_human()` function.
+First you can see how the template is written which is in a code based
+form, the code based form is then converted to be easily readable for
+humans. We will subset to the first four columns since there are too
+many columns to display on a single page.
 
 ``` r
 library(chktemplate)
-library(tibble)
-chktemplate::demo_template_fish_exploit$outing
-#> # A tibble: 5 × 18
-#>   name   outing_id year  month day   hour_start minute_start hour_end minute_end
-#>   <chr>  <chr>     <chr> <chr> <chr> <chr>      <chr>        <chr>    <chr>     
-#> 1 examp… 1         <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> 2 descr… unique I… year… mont… day … hour of o… minute of o… hour of… minute of…
-#> 3 chk    c(0L, 10… c(20… c(1L… c(1L… c(0L, 23L) c(0L, 59L)   c(0L, 2… c(0L, 59L)
-#> 4 pkey   TRUE      <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> 5 unique TRUE      <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> # ℹ 9 more variables: boat <chr>, guide <chr>, crew1 <chr>, crew2 <chr>,
-#> #   crew_gps <chr>, crew_camera <chr>, watertemp_degc <chr>, rod_count <chr>,
-#> #   comment <chr>
-set.seed(42)
-chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing)
-#> # A tibble: 5 × 18
-#>   name   outing_id year  month day   hour_start minute_start hour_end minute_end
-#>   <chr>  <chr>     <chr> <chr> <chr> <chr>      <chr>        <chr>    <chr>     
-#> 1 descr… unique I… year… mont… day … hour of o… minute of o… hour of… minute of…
-#> 2 examp… 1         2064  9     10    3          17           16       46        
-#> 3 const… integer … inte… inte… inte… integer b… integer bet… integer… integer b…
-#> 4 missi… no        no    no    no    no         no           no       no        
-#> 5 unique yes       no    no    no    no         no           no       no        
-#> # ℹ 9 more variables: boat <chr>, guide <chr>, crew1 <chr>, crew2 <chr>,
-#> #   crew_gps <chr>, crew_camera <chr>, watertemp_degc <chr>, rod_count <chr>,
-#> #   comment <chr>
+chktemplate::demo_template_fish_exploit$outing[1:4]
+#>          name           outing_id            year           month
+#> 1     example                   1            <NA>            <NA>
+#> 2 description unique Id of outing  year of outing month of outing
+#> 3         chk        c(0L, 1000L) c(2000L, 2099L)      c(1L, 12L)
+#> 4        pkey                TRUE            <NA>            <NA>
+#> 5      unique                TRUE            <NA>            <NA>
+chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing[1:4])
+#> # A tibble: 5 × 4
+#>   name            outing_id                  year                          month
+#>   <chr>           <chr>                      <chr>                         <chr>
+#> 1 description     unique Id of outing        year of outing                mont…
+#> 2 example         1                          2024                          3    
+#> 3 constraint      integer between 0 and 1000 integer between 2000 and 2099 inte…
+#> 4 missing_allowed no                         no                            no   
+#> 5 unique          yes                        no                            no
 ```
+
+### Check Data Against Template Requirements
 
 ## Code of Conduct
 

@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate?branch=main)
 <!-- badges: end -->
 
-Modify a `shinyupload` template to human-readable format.
+Work with a Shiny templates by turning them into human-readable format 
+or confirm the data follows the template requirements.
 
 ## Installation
 
@@ -34,19 +35,18 @@ remotes::install_github("poissonconsulting/chktemplate")
 
 ## Demonstration
 
-`chktemplate` is an R package of utility functions. 
-It is designed to be used in conjunction with the `shinyupload2` package.
+### Convert Template to be Human Readable
 
-Consider the demonstration template - each data frame is converted into human readable format using the 
-`template_human()` function.
+First you can see how the template is written which is in a code based form, the code based form is then converted to be easily readable for humans. 
+We will subset to the first four columns since there are too many columns to display on a single page.
 
 ```{r}
 library(chktemplate)
-library(tibble)
-chktemplate::demo_template_fish_exploit$outing
-set.seed(42)
-chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing)
+chktemplate::demo_template_fish_exploit$outing[1:4]
+chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing[1:4])
 ```
+
+### Check Data Against Template Requirements 
 
 ## Code of Conduct
 
