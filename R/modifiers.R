@@ -25,7 +25,8 @@ chk_to_constraint <- function(x) {
   type <- class(y)
   type <- switch(type,
     "numeric" = "number",
-    "character" = "word(s)", type
+    "character" = "word(s)",
+    type
   )
   # if 2 values excluding NA return random within range
   if (length(y) == 1) {

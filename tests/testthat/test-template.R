@@ -17,8 +17,7 @@ test_that("template modification works fish exploit", {
 })
 
 test_that("test template", {
-
-  template <-readxl::read_excel(
+  template <- readxl::read_excel(
     system.file(
       "extdata/template_test.xlsx",
       package = "chktemplate"
@@ -58,7 +57,6 @@ test_that("test template", {
     human_temp$start_second[human_temp$name == "constraint"],
     "integer between 0 and 59"
   )
-
 })
 
 test_that("chk modifiers work for data entry template", {
@@ -75,7 +73,7 @@ test_that("chk modifiers work for data entry template", {
   expect_identical(
     as.vector(
       unlist(
-        template[1,]
+        template[1, ]
       )
     ),
     c("label", "Date", "Tag Number 1", "Tag Number 2", "Harvested", "Comments")
@@ -85,7 +83,6 @@ test_that("chk modifiers work for data entry template", {
     template$harvested[4],
     "Was the fish harvested? Answers include yes or no."
   )
-
 })
 
 test_that("chk modifiers work for logger template", {
@@ -99,8 +96,10 @@ test_that("chk modifiers work for logger template", {
 
 test_that("chk modifiers work for points template", {
   template <- demo_template_points_historic
-  expect_identical(colnames(template), c("Longitude", "Latitude",
-                                         "Year", "Other_Columns"))
+  expect_identical(
+    colnames(template),
+    c("Longitude", "Latitude", "Year", "Other_Columns")
+  )
   expect_equal(template$Longitude[1], -116.9465769)
   expect_equal(template$Latitude[1], 50.24804302)
   expect_equal(template$Year[1], 2020)
@@ -108,12 +107,16 @@ test_that("chk modifiers work for points template", {
 
 test_that("chk modifiers work for lines template", {
   template <- demo_template_lines_historic
-  expect_identical(colnames(template), c("Longitude_Start", "Longitude_End",
-                                         "Latitude_Start", "Latitude_End",
-                                         "Year", "Other_Columns"  ))
+  expect_identical(
+    colnames(template),
+    c(
+      "Longitude_Start", "Longitude_End", "Latitude_Start", "Latitude_End",
+      "Year", "Other_Columns"
+    )
+  )
   expect_equal(template$Longitude_Start[1], -117.232895)
   expect_equal(template$Longitude_End[1], -117.2388384)
-  expect_equal(template$Latitude_Start[1],50.48322481)
+  expect_equal(template$Latitude_Start[1], 50.48322481)
   expect_equal(template$Latitude_End[1], 50.48507439)
   expect_equal(template$Year[1], 2019)
 })
