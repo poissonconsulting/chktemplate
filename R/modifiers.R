@@ -42,7 +42,7 @@ chk_to_constraint <- function(x) {
 }
 
 lgl_to_yesno <- function(x) {
-  if (x == TRUE & !is.na(x)) {
+  if (x == TRUE && !is.na(x)) {
     return("yes")
   }
   "no"
