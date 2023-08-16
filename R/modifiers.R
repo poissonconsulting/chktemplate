@@ -9,10 +9,10 @@ chk_to_example <- function(x) {
   y <- sort(rm_na(x))
   # if 2 values excluding NA return random within range
   if (length(y) == 2) {
-    if (class(x) == "integer") {
+    if (inherits(x, "integer")) {
       return(sample(y[1]:y[2], 1))
     }
-    if (class(x) == "numeric") {
+    if (inherits(x, "numeric")) {
       return(round(runif(1, y[1], y[2]), 1))
     }
   }
