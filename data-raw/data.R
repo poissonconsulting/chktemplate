@@ -1,4 +1,5 @@
-#### Saving RDA files from extdata ####
+## code to prepare `data` dataset goes here
+
 path <- system.file(
   "extdata/demo-template-fish-exploit.xlsx",
   package = "chktemplate"
