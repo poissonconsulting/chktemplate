@@ -10,9 +10,9 @@
 "demo_template_fish_exploit"
 
 
-#' Demo Template for Data Entry Tab
+#' Single Demo Template
 #'
-#' Sample template for a data entry tab in a data upload app.
+#' Sample template for one table.
 #'
 #' @format A data.frame with columns:
 #' \describe{
@@ -23,4 +23,4 @@
 #'   \item{harvested}{Either yes or no for if the fish was harvested}
 #'   \item{comment}{Comments about the capture}
 #' }
-"demo_template_data_entry"
+"demo_template_tag"

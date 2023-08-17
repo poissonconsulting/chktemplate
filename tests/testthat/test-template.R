@@ -61,7 +61,7 @@ test_that("test template", {
 
 test_that("chk modifiers work for data entry template", {
   ### chk_to_type
-  template <- demo_template_data_entry
+  template <- demo_template_tag
 
   expect_identical(
     chkrow_to_type(template[c(1, 2, 3, 5)]),

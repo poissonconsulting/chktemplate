@@ -13,8 +13,8 @@ usethis::use_data(demo_template_fish_exploit, overwrite = TRUE)
 
 
 path <- system.file(
-  "extdata/demo-template-data-entry.csv",
+  "extdata/demo-template-tag.csv",
   package = "chktemplate"
 )
-demo_template_data_entry <- read.csv(path)
-usethis::use_data(demo_template_data_entry, overwrite = TRUE)
+demo_template_tag <- read.csv(path)
+usethis::use_data(demo_template_tag, overwrite = TRUE)
