@@ -10,21 +10,17 @@
 "demo_template_fish_exploit"
 
 
-#' Demo template based on data entry upload
+#' Demo Template for Data Entry Tab
 #'
+#' Sample template for a data entry tab in a data upload app.
+#'
+#' @format A data.frame with columns:
+#' \describe{
+#'   \item{name}{Row description}
+#'   \item{date}{Date the fish was caught}
+#'   \item{tag_1}{The number from the first tag}
+#'   \item{tag_2}{The number from the second tag}
+#'   \item{harvested}{Either yes or no for if the fish was harvested}
+#'   \item{comment}{Comments about the capture}
+#' }
 "demo_template_data_entry"
-
-
-#' Demo template based on logger site info
-#'
-"demo_template_logger"
-
-
-#' Demo template for lines in the historic data module
-#'
-"demo_template_lines_historic"
-
-
-#' Demo template for points in the historic data module
-#'
-"demo_template_points_historic"

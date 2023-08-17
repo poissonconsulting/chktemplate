@@ -84,39 +84,3 @@ test_that("chk modifiers work for data entry template", {
     "Was the fish harvested? Answers include yes or no."
   )
 })
-
-test_that("chk modifiers work for logger template", {
-  template <- demo_template_logger
-  expect_identical(colnames(template), c("Sites", "X", "Y"))
-  expect_identical(template$Sites[1], "Demo Site")
-  expect_equal(template$X[1], -132.282245)
-  expect_equal(template$Y[1], 53.352985)
-})
-
-
-test_that("chk modifiers work for points template", {
-  template <- demo_template_points_historic
-  expect_identical(
-    colnames(template),
-    c("Longitude", "Latitude", "Year", "Other_Columns")
-  )
-  expect_equal(template$Longitude[1], -116.9465769)
-  expect_equal(template$Latitude[1], 50.24804302)
-  expect_equal(template$Year[1], 2020)
-})
-
-test_that("chk modifiers work for lines template", {
-  template <- demo_template_lines_historic
-  expect_identical(
-    colnames(template),
-    c(
-      "Longitude_Start", "Longitude_End", "Latitude_Start", "Latitude_End",
-      "Year", "Other_Columns"
-    )
-  )
-  expect_equal(template$Longitude_Start[1], -117.232895)
-  expect_equal(template$Longitude_End[1], -117.2388384)
-  expect_equal(template$Latitude_Start[1], 50.48322481)
-  expect_equal(template$Latitude_End[1], 50.48507439)
-  expect_equal(template$Year[1], 2019)
-})

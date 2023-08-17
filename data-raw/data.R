@@ -18,27 +18,3 @@ path <- system.file(
 )
 demo_template_data_entry <- read.csv(path)
 usethis::use_data(demo_template_data_entry, overwrite = TRUE)
-
-
-path <- system.file(
-  "extdata/demo-template-logger.csv",
-  package = "chktemplate"
-)
-demo_template_logger <- read.csv(path)
-usethis::use_data(demo_template_logger, overwrite = TRUE)
-
-
-path <- system.file(
-  "extdata/demo-template-lines-historic.csv",
-  package = "chktemplate"
-)
-demo_template_lines_historic <- read.csv(path)
-usethis::use_data(demo_template_lines_historic, overwrite = TRUE)
-
-
-path <- system.file(
-  "extdata/demo-template-points-historic.csv",
-  package = "chktemplate"
-)
-demo_template_points_historic <- read.csv(path)
-usethis::use_data(demo_template_points_historic, overwrite = TRUE)
