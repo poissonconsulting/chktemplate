@@ -6,7 +6,7 @@ test_that("template modification works fish exploit", {
   template <- demo_template_fish_exploit$outing
   expr <- chkrow_to_expression(template)
   expect_identical(names(expr), names(template)[-1])
-  expect_identical(expr[[1]], c(0L, 1000L))
+  expect_identical(expr[[1]], c(0L, 100L))
 
   x <- template_human(template)
   expect_identical(x$name, c(
