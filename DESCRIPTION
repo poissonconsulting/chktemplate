@@ -16,7 +16,7 @@ Authors@R:
              role = c("cph", "fnd")))
 Description: Modify a shinyupload template to human-readable
     format.
-License: file LICENSE
+License: MIT + file LICENSE
 Depends: 
     R (>= 4.0)
 Imports: 
