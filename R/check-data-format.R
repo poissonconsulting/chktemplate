@@ -74,7 +74,7 @@ check_data_format <- function(..., template, joins = NULL, complete = FALSE) {
       )
     }
     # check the joins
-    check_template_join(data, template)
+    check_template_joins(data, template)
   }
   data
 }
@@ -168,72 +168,83 @@ check_template_ranges <- function(data, template) {
   data
 }
 
-check_template_join <- function(data, template) {
+check_template_joins <- function(data, template) {
   #browser()
   for (i in names(template)) {
-    if ("join" %in% template[[i]]$name) {
-      x <- template[[i]][-1]
-      join_by <- which(
-        !is.na(
-          as.vector(
-            template[[i]][template[[i]]$name == "join", ][-1]
-          )
+    name_column <- template[[i]]$name
+    join_list <- name_column[grepl("join", name_column)]
+
+    for (j in join_list) {
+      check_template_join(data, template, i, j)
+    }
+  }
+}
+
+# TO DO: Add check to confirm that pkey listed in parent table is by argument in child table
+
+check_template_join <- function(data, template, sheet, join_num) {
+  if (join_num %in% template[[sheet]]$name) {
+    x <- template[[sheet]][-1]
+    join_by <- which(
+      !is.na(
+        as.vector(
+          template[[sheet]][template[[sheet]]$name == join_num, ][-1]
         )
       )
-      join_by <- names(x)[join_by]
-      if (length(join_by) == 0) {
-        next()
-      }
-      # get the table name for the x table
-      tbl_x <- unique(
-        as.character(
-          as.vector(
-            x[template[[i]]$name == "join", ]
-          )
+    )
+    join_by <- names(x)[join_by]
+    if (length(join_by) == 0) {
+      return()
+    }
+    # get the table name for the x table
+    tbl_x <- unique(
+      as.character(
+        as.vector(
+          x[template[[sheet]]$name == join_num, ]
         )
       )
-      tbl_x <- tbl_x[!is.na(tbl_x)]
+    )
+    tbl_x <- tbl_x[!is.na(tbl_x)]
 
-      if (length(tbl_x) > 1) {
-        stop(
-          paste(
-            "Only 1 table can be listed per join row. Ensure the join row of",
-            "the template only list a single table"
-          )
+    if (length(tbl_x) > 1) {
+      stop(
+        paste(
+          "Only 1 table can be listed per join row. Ensure the join row of",
+          "the template only list a single table"
         )
-      }
+      )
+    }
 
-      joins <- list(list(
-        tbl_y = i,
-        tbl_x = tbl_x,
-        by = join_by
-      ))
+    joins <- list(list(
+      tbl_y = sheet,
+      tbl_x = tbl_x,
+      by = join_by
+    ))
 
-      names(joins) <- i
+    names(joins) <- sheet
 
-      if (!chk::vld_join(
-        data[[joins[[i]]$tbl_y]],
-        data[[joins[[i]]$tbl_x]],
-        by = c(joins[[i]]$by)
-      )) {
+    if (!chk::vld_join(
+      data[[joins[[sheet]]$tbl_y]],
+      data[[joins[[sheet]]$tbl_x]],
+      by = c(joins[[sheet]]$by)
+    )) {
 
-        data[[joins[[i]]$tbl_y]]$id <- 1:nrow(data[[joins[[i]]$tbl_y]])
+      data[[joins[[sheet]]$tbl_y]]$id <- 1:nrow(data[[joins[[sheet]]$tbl_y]])
 
-        no_match <- dplyr::anti_join(
-          data[[joins[[i]]$tbl_y]],
-          data[[joins[[i]]$tbl_x]],
-          by = c(joins[[i]]$by)
-        ) |>
-          dplyr::select("id") |>
-          dplyr::pull()
+      no_match <- dplyr::anti_join(
+        data[[joins[[sheet]]$tbl_y]],
+        data[[joins[[sheet]]$tbl_x]],
+        by = c(joins[[sheet]]$by)
+      ) |>
+        dplyr::select("id") |>
+        dplyr::pull()
 
-        chk::abort_chk(
-          "All ", chk::cc(joins[[i]]$by), " values in the ", joins[[i]]$tbl_y,
-          " table must be in the ", joins[[i]]$tbl_x,
-          " table. The following rows(s) in the ", joins[[i]]$tbl_y, " table ",
-          "are causing the issue: ", chk::cc(no_match)
-        )
-      }
+      chk::abort_chk(
+        "All ", chk::cc(joins[[sheet]]$by), " values in the ", joins[[sheet]]$tbl_y,
+        " table must be in the ", joins[[sheet]]$tbl_x,
+        " table. The following rows(s) in the ", joins[[sheet]]$tbl_y, " table ",
+        "are causing the issue: ", chk::cc(no_match)
+      )
     }
   }
 }

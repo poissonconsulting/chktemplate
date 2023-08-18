@@ -804,10 +804,7 @@ test_that(
   )
 })
 
-test_that(
-  paste(
-    "Error as template has 2 tables listed in join row"
-  ), {
+test_that("Error as template has 2 tables listed in join row", {
   site <- data.frame(
     site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
   )
@@ -864,6 +861,125 @@ test_that(
     regexp = paste(
       "Only 1 table can be listed per join row. Ensure the join row of the",
       "template only list a single table"
+    )
+  )
+})
+
+test_that("Passes when multiple joins occur", {
+
+  visit <- data.frame(
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    site = c("Pretty Bay", "Pretty Bay", "Pretty Bay")
+  )
+
+  crew <- data.frame(
+    crew1 = c("AP", "BY"),
+    crew2 = c("JT", "JT")
+  )
+
+  count <- data.frame(
+    year = c(2010, 2010),
+    month = c(7, 7),
+    day = c(15, 16),
+    site = c("Pretty Bay", "Pretty Bay"),
+    crew1 = c("AP", "BY"),
+    crew2 = c("JT", "JT"),
+    species = c("BT", "CT"),
+    count = c(14, 7)
+  )
+
+  data <- check_data_format(
+    visit = visit,
+    crew = crew,
+    count = count,
+    template = demo_template_count,
+    complete = TRUE
+  )
+
+  expect_type(data, "list")
+  expect_s3_class(data$visit, "data.frame")
+  expect_identical(length(data), 3L)
+})
+
+test_that("Errors multiple joins on first join row", {
+
+  visit <- data.frame(
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    site = c("Pretty Bay", "Pretty Bay", "Pretty Bay")
+  )
+
+  crew <- data.frame(
+    crew1 = c("AP", "BY"),
+    crew2 = c("JT", "JT")
+  )
+
+  count <- data.frame(
+    year = c(2010, 2011),
+    month = c(7, 7),
+    day = c(15, 16),
+    site = c("Pretty Bay", "Pretty Bay"),
+    crew1 = c("AP", "BY"),
+    crew2 = c("JT", "JT"),
+    species = c("BT", "CT"),
+    count = c(14, 7)
+  )
+
+  expect_error(
+    check_data_format(
+      visit = visit,
+      crew = crew,
+      count = count,
+      template = demo_template_count,
+      complete = TRUE
+    ),
+    regexp = paste(
+      "All 'year', 'month', 'day', 'site' values in the count table must be",
+      "in the visit table. The following rows\\(s\\) in the count table are",
+      "causing the issue\\: 2."
+    )
+  )
+})
+
+test_that("Errors multiple joins on second join row", {
+
+  visit <- data.frame(
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    site = c("Pretty Bay", "Pretty Bay", "Pretty Bay")
+  )
+
+  crew <- data.frame(
+    crew1 = c("AA", "BY"),
+    crew2 = c("JT", "JT")
+  )
+
+  count <- data.frame(
+    year = c(2010, 2010),
+    month = c(7, 7),
+    day = c(15, 16),
+    site = c("Pretty Bay", "Pretty Bay"),
+    crew1 = c("AP", "BY"),
+    crew2 = c("JT", "JT"),
+    species = c("BT", "CT"),
+    count = c(14, 7)
+  )
+
+  expect_error(
+    check_data_format(
+      visit = visit,
+      crew = crew,
+      count = count,
+      template = demo_template_count,
+      complete = TRUE
+    ),
+    regexp = paste(
+      "All 'crew1' values in the count table must be in the crew table.",
+      "The following rows\\(s\\) in the count table are causing the issue\\: 1."
     )
   )
 })
