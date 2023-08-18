@@ -169,30 +169,38 @@ check_template_ranges <- function(data, template) {
 }
 
 check_template_join <- function(data, template) {
+  #browser()
   for (i in names(template)) {
-
-    #joins <- list()
     if ("join" %in% template[[i]]$name) {
-
       x <- template[[i]][-1]
-
-     #browser()
-
-      join_by <- which(!is.na(as.vector(
-        template[[i]][template[[i]]$name == "join", ][-1]
-      )))
+      join_by <- which(
+        !is.na(
+          as.vector(
+            template[[i]][template[[i]]$name == "join", ][-1]
+          )
+        )
+      )
       join_by <- names(x)[join_by]
       if (length(join_by) == 0) {
         next()
       }
-
       # get the table name for the x table
-      tbl_x <- unique(as.character(as.vector(x[template[[i]]$name == "join", ])))
+      tbl_x <- unique(
+        as.character(
+          as.vector(
+            x[template[[i]]$name == "join", ]
+          )
+        )
+      )
       tbl_x <- tbl_x[!is.na(tbl_x)]
 
-      # error if more then 1 table is listed
       if (length(tbl_x) < 1) {
-        stop("Only 1 table can be joined")
+        stop(
+          paste(
+            "Only 1 table can be checked. Ensure the join row of the template",
+            "only list a single table"
+          )
+        )
       }
 
       joins <- list(list(
@@ -203,19 +211,18 @@ check_template_join <- function(data, template) {
 
       names(joins) <- i
 
-      ## not sure if this line is needed, could just be joins...
-      ## need to test on templates with more then 1 table that joins
-      #joins <- c(joins, l)
-
-      ## TO DO: find way to check when multiple by's are provided
       if (!chk::vld_join(
-        data[[joins[[i]]$tbl_y]], data[[joins[[i]]$tbl_x]], by = c(joins[[i]]$by)
+        data[[joins[[i]]$tbl_y]],
+        data[[joins[[i]]$tbl_x]],
+        by = c(joins[[i]]$by)
       )) {
 
         data[[joins[[i]]$tbl_y]]$id <- 1:nrow(data[[joins[[i]]$tbl_y]])
 
         no_match <- dplyr::anti_join(
-          data[[joins[[i]]$tbl_y]], data[[joins[[i]]$tbl_x]], by = c(joins[[i]]$by)
+          data[[joins[[i]]$tbl_y]],
+          data[[joins[[i]]$tbl_x]],
+          by = c(joins[[i]]$by)
         ) |>
           dplyr::select(id) |>
           dplyr::pull()
