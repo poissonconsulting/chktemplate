@@ -19,3 +19,16 @@ path <- system.file(
 )
 demo_template_tag <- read.csv(path)
 usethis::use_data(demo_template_tag, overwrite = TRUE)
+
+
+path <- system.file(
+  "extdata/demo-template-count.xlsx",
+  package = "chktemplate"
+)
+sheets <- readxl::excel_sheets(path)
+demo_template_count <- lapply(
+  sheets,
+  function(y) readxl::read_excel(path, y)
+)
+names(demo_template_count) <- sheets
+usethis::use_data(demo_template_count, overwrite = TRUE)

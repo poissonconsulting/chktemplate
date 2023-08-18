@@ -1,4 +1,4 @@
-#' Demo template based on fish exploitation study
+#' Multiple Table Demo Template Fish Exploit
 #'
 #' @format A named list of data.frames:
 #' \describe{
@@ -8,6 +8,18 @@
 #'   ...
 #' }
 "demo_template_fish_exploit"
+
+
+#' Multiple Table Demo Template Count
+#'
+#' @format A named list of data.frames:
+#' \describe{
+#'   \item{visit}{visit table}
+#'   \item{crew}{crew table}
+#'   \item{count}{count table}
+#'   ...
+#' }
+"demo_template_count"
 
 
 #' Single Demo Template
