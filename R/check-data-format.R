@@ -194,11 +194,11 @@ check_template_join <- function(data, template) {
       )
       tbl_x <- tbl_x[!is.na(tbl_x)]
 
-      if (length(tbl_x) < 1) {
+      if (length(tbl_x) > 1) {
         stop(
           paste(
-            "Only 1 table can be checked. Ensure the join row of the template",
-            "only list a single table"
+            "Only 1 table can be listed per join row. Ensure the join row of",
+            "the template only list a single table"
           )
         )
       }
