@@ -131,6 +131,25 @@ data <- check_data_format(
 )
 ```
 
+## Template Requirements
+
+In the templates the first column needs to be the name column which is a special column.
+The name column sets out the rules for the template.
+No other column can be called name.
+
+Description of each row:
+
+- name: column names
+- example: sample value, optional
+- description: written description of the column
+- chk: range, type, missing value and set checks, see [chk::chk_values](https://poissonconsulting.github.io/chk/reference/check_values.html) for how values are checked 
+- pkey: primary key, set values as `TRUE`, can be a combination of columns
+- unique: column has to be unique, set values as `TRUE`, optional
+- join1: place parent table name in the variable(s) that should be the `by` argument of join, optional
+
+Each join row must link to the same parent table, if a table needs to join to multiple tables add a join2 row. 
+Check `chktemplate::demo_template_count` template for an example of a table with multiple join rows.
+
 ## Code of Conduct
 
 Please note that the `chktemplate` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). 
