@@ -224,7 +224,7 @@ check_template_join <- function(data, template) {
           data[[joins[[i]]$tbl_x]],
           by = c(joins[[i]]$by)
         ) |>
-          dplyr::select(id) |>
+          dplyr::select("id") |>
           dplyr::pull()
 
         chk::abort_chk(
