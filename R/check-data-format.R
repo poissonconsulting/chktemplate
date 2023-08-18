@@ -170,9 +170,13 @@ check_template_ranges <- function(data, template) {
 
 check_template_join <- function(data, template) {
   for (i in names(template)) {
+
+    #joins <- list()
     if ("join" %in% template[[i]]$name) {
 
       x <- template[[i]][-1]
+
+     #browser()
 
       join_by <- which(!is.na(as.vector(
         template[[i]][template[[i]]$name == "join", ][-1]
@@ -183,36 +187,44 @@ check_template_join <- function(data, template) {
       }
 
       # get the table name for the x table
-      tbl_x <- unique(template[[i]][[join_by]][template[[i]]$name == "join"])
+      tbl_x <- unique(as.character(as.vector(x[template[[i]]$name == "join", ])))
+      tbl_x <- tbl_x[!is.na(tbl_x)]
 
       # error if more then 1 table is listed
       if (length(tbl_x) < 1) {
         stop("Only 1 table can be joined")
       }
 
-      l <- list(list(
+      joins <- list(list(
         tbl_y = i,
         tbl_x = tbl_x,
         by = join_by
       ))
 
-      names(l) <- i
+      names(joins) <- i
 
-      joins <- c(joins, l)
+      ## not sure if this line is needed, could just be joins...
+      ## need to test on templates with more then 1 table that joins
+      #joins <- c(joins, l)
 
+      ## TO DO: find way to check when multiple by's are provided
       if (!chk::vld_join(
         data[[joins[[i]]$tbl_y]], data[[joins[[i]]$tbl_x]], by = c(joins[[i]]$by)
       )) {
 
-        no_match <- unique(
-          data[[joins[[i]]$tbl_y]][!data[[joins[[i]]$tbl_y]][[joins[[i]]$by]] %in%
-                                     data[[joins[[i]]$tbl_x]][[joins[[i]]$by]],][[joins[[i]]$by]]
-        )
+        data[[joins[[i]]$tbl_y]]$id <- 1:nrow(data[[joins[[i]]$tbl_y]])
+
+        no_match <- dplyr::anti_join(
+          data[[joins[[i]]$tbl_y]], data[[joins[[i]]$tbl_x]], by = c(joins[[i]]$by)
+        ) |>
+          dplyr::select(id) |>
+          dplyr::pull()
 
         chk::abort_chk(
-          "All ", joins[[i]]$by, " values in the ", joins[[i]]$tbl_y,
-          " table must be in the ", joins[[i]]$tbl_x, " table. The following value(s)
-    are not in the ", joins[[i]]$tbl_x, " table:", chk::cc(no_match)
+          "All ", chk::cc(joins[[i]]$by), " values in the ", joins[[i]]$tbl_y,
+          " table must be in the ", joins[[i]]$tbl_x,
+          " table. The following rows(s) in the ", joins[[i]]$tbl_y, " table ",
+          "are causing the issue: ", chk::cc(no_match)
         )
       }
     }
