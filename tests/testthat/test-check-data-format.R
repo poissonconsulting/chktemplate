@@ -102,7 +102,7 @@ test_that("Errors when year under range is supplied", {
   )
 })
 
-test_that("Errors when character supplied to numeric column", {
+test_that("Errors when character supplied to integer column", {
   outing <- data.frame(
     outing_id = c(1L, 2L, 3L),
     site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
@@ -123,6 +123,32 @@ test_that("Errors when character supplied to numeric column", {
       complete = FALSE
     ),
     regexp = "The following values in column 'month' should be a integer\\: 'seven' and 'July'\\."
+  )
+})
+
+test_that("Errors when character supplied to numeric column", {
+  outing <- data.frame(
+    outing_id = c(1L, 2L, 3L),
+    site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    hour_start = c(9L, 11L, 8L),
+    minute_start = c(0, 0, 0),
+    guide = c("JT", "JT", "JT"),
+    rod_count = c("two", 3, 2),
+    comment = c(NA_character_, NA_character_, NA_character_)
+  )
+
+  expect_error(
+    check_data_format(
+      outing = outing,
+      template = demo_template_fish_exploit,
+      complete = FALSE
+    ),
+    regexp = paste(
+      "The following values in column 'rod_count' should be a number\\: 'two'."
+    )
   )
 })
 
