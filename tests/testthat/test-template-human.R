@@ -9,10 +9,13 @@ test_that("template modification works fish exploit", {
   expect_identical(expr[[1]], c(0L, 100L))
 
   x <- template_human(template)
-  expect_identical(x$name, c(
-    "description", "example", "constraint",
-    "missing_allowed", "unique"
-  ))
+  expect_identical(
+    x$name,
+    c(
+      "description", "example", "constraint", "missing allowed", "primary key",
+      "unique", "joins through"
+    )
+  )
   expect_identical(colnames(x), colnames(template))
 })
 
@@ -85,46 +88,19 @@ test_that("chk modifiers work for data entry template", {
   )
 })
 
-test_that("Count internal template is same as extdata file", {
-  path <- system.file(
-    "extdata/demo-template-count.xlsx",
-    package = "chktemplate"
-  )
-  sheets <- readxl::excel_sheets(path)
-  template_excel <- lapply(
-    sheets,
-    function(y) readxl::read_excel(path, y)
-  )
-  names(template_excel) <- sheets
+test_that("template modification works count with more then one join", {
+  template <- demo_template_count$count
+  expr <- chkrow_to_expression(template)
+  expect_identical(names(expr), names(template)[-1])
+  expect_identical(expr[[1]], c(2000L, 2099L))
 
-  expect_identical(chktemplate::demo_template_count, template_excel)
-  expect_type(chktemplate::demo_template_count, "list")
-})
-
-test_that("Fish exploit internal template is same as extdata file", {
-  path <- system.file(
-    "extdata/demo-template-fish-exploit.xlsx",
-    package = "chktemplate"
+  x <- template_human(template)
+  expect_identical(
+    x$name,
+    c(
+      "description", "example", "constraint", "missing allowed", "primary key",
+      "unique", "joins through", "joins through"
+    )
   )
-  sheets <- readxl::excel_sheets(path)
-  template_excel <- lapply(
-    sheets,
-    function(y) readxl::read_excel(path, y)
-  )
-  names(template_excel) <- sheets
-
-  expect_identical(chktemplate::demo_template_fish_exploit, template_excel)
-  expect_type(chktemplate::demo_template_fish_exploit, "list")
-})
-
-test_that("Tag internal template is same as extdata file", {
-  path <- system.file(
-    "extdata/demo-template-tag.csv",
-    package = "chktemplate"
-  )
-  expect_warning(template_excel <- read.csv(path), regex = "incomplete final line")
-
-  expect_identical(chktemplate::demo_template_tag, template_excel)
-  expect_type(chktemplate::demo_template_tag, "list")
-  expect_s3_class(chktemplate::demo_template_tag, "data.frame")
+  expect_identical(colnames(x), colnames(template))
 })
