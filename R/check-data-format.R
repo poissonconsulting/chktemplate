@@ -6,7 +6,6 @@
 #'
 #' @param ... A list of named data frames of the data
 #' @param template A list of named data frames that make up the template
-#' @param joins NULL I think this can be removed...
 #' @param complete A logical indicating if all tables present in the template
 #'   need to be supplied in the ... argument. If TRUE all tables need to be
 #'   provided in ... argument, default is set to FALSE. This must be set to TRUE
@@ -32,6 +31,7 @@
 #' )
 #'
 #' check_data_format(
+#'   site = site
 #'   outing = outing,
 #'   capture = capture,
 #'   recapture = recapture,
@@ -39,8 +39,7 @@
 #'   complete = TRUE
 #' )
 #' }
-check_data_format <- function(..., template, joins = NULL, complete = FALSE) {
-  ### TODO not sure if the join argument needs to be specified...
+check_data_format <- function(..., template, complete = FALSE) {
   chk::chk_used(...)
   chk::chk_list(template)
   chk::chk_lgl(complete)

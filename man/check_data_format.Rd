@@ -4,14 +4,12 @@
 \alias{check_data_format}
 \title{Check Data follow Required Format as per the Template}
 \usage{
-check_data_format(..., template, joins = NULL, complete = FALSE)
+check_data_format(..., template, complete = FALSE)
 }
 \arguments{
 \item{...}{A list of named data frames of the data}
 
 \item{template}{A list of named data frames that make up the template}
-
-\item{joins}{NULL I think this can be removed...}
 
 \item{complete}{A logical indicating if all tables present in the template
 need to be supplied in the ... argument. If TRUE all tables need to be
@@ -44,6 +42,7 @@ check_data_format(
 )
 
 check_data_format(
+  site = site
   outing = outing,
   capture = capture,
   recapture = recapture,
