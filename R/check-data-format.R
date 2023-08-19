@@ -179,8 +179,6 @@ check_template_joins <- function(data, template) {
   }
 }
 
-# TO DO: Add check to confirm that pkey listed in parent table is by argument in child table
-
 check_template_join <- function(data, template, sheet, join_num) {
   if (join_num %in% template[[sheet]]$name) {
     x <- template[[sheet]][-1]
@@ -210,6 +208,17 @@ check_template_join <- function(data, template, sheet, join_num) {
         paste(
           "Only 1 table can be listed per join row. Ensure the join row of",
           "the template only list a single table"
+        )
+      )
+    }
+
+    parent_pkey <- as.vector(template[[tbl_x]][template[[tbl_x]]$name == "pkey", ][-1])
+    parent_pkey <- names(parent_pkey[!is.na(parent_pkey)])
+    if (!identical(join_by, parent_pkey)) {
+      stop(
+        paste(
+          "The pkey values in the parent table must match the columns listed",
+          "in the child table in the join row"
         )
       )
     }
