@@ -169,7 +169,6 @@ check_template_ranges <- function(data, template) {
 }
 
 check_template_joins <- function(data, template) {
-  #browser()
   for (i in names(template)) {
     name_column <- template[[i]]$name
     join_list <- name_column[grepl("join", name_column)]
