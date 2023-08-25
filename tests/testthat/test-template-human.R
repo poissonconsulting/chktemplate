@@ -3,7 +3,7 @@ test_that("template modification works fish exploit", {
   expr <- row_expr(x[x$name == "chk", ])
   expect_identical(expr, list("GA", c(1, 2)))
 
-  template <- demo_template_fish_exploit$outing
+  template <- test_template_4$outing
   expr <- chkrow_to_expression(template)
   expect_identical(names(expr), names(template)[-1])
   expect_identical(expr[[1]], c(0L, 100L))
@@ -13,23 +13,16 @@ test_that("template modification works fish exploit", {
     x$name,
     c(
       "description", "example", "constraint", "missing allowed", "primary key",
-      "unique", "joins through"
+      "unique", "joins to"
     )
   )
   expect_identical(colnames(x), colnames(template))
 })
 
 test_that("test template", {
-  template <- readxl::read_excel(
-    system.file(
-      "extdata/template_test.xlsx",
-      package = "chktemplate"
-    )
-  )
+  expect_warning(chktemplate::template_human(test_template_2), regexp = NA)
 
-  expect_warning(chktemplate::template_human(template), regexp = NA)
-
-  human_temp <- chktemplate::template_human(template)
+  human_temp <- chktemplate::template_human(test_template_2)
 
   expect_equal(
     human_temp$Year[human_temp$name == "constraint"],
@@ -99,7 +92,7 @@ test_that("template modification works count with more then one join", {
     x$name,
     c(
       "description", "example", "constraint", "missing allowed", "primary key",
-      "unique", "joins through", "joins through"
+      "unique", "joins to", "joins to"
     )
   )
   expect_identical(colnames(x), colnames(template))

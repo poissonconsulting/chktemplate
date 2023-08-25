@@ -14,7 +14,7 @@ test_that("Pass when single table and all good values are passed", {
 
   data <- check_data_format(
     outing = outing,
-    template = demo_template_fish_exploit,
+    template = test_template_4,
     complete = FALSE
   )
 
@@ -45,7 +45,7 @@ test_that("Error when only 1 sheet is supplied in template of 3 sheets when
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = "The `complete = TRUE` argument was provided but not all data sets were
@@ -71,7 +71,7 @@ test_that("Errors when year beyond range is supplied", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "`outing\\$year` must have values between 2000 and 2099."
@@ -95,7 +95,7 @@ test_that("Errors when year under range is supplied", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "`outing\\$year` must have values between 2000 and 2099."
@@ -119,7 +119,7 @@ test_that("Errors when character supplied to integer column", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "The following values in column 'month' should be a integer\\: 'seven' and 'July'\\."
@@ -143,7 +143,7 @@ test_that("Errors when character supplied to numeric column", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = paste(
@@ -169,7 +169,7 @@ test_that("Errors when a column name is not the same as the template", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "Column names in data must include 'outing_id'\\."
@@ -193,7 +193,7 @@ test_that("Errors when a missing value supplied to column it is not allowed", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "`outing\\$outing_id` must not have any missing values\\."
@@ -217,7 +217,7 @@ test_that("Errors when a missing value supplied to year column", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "`outing\\$year` must not have any missing values."
@@ -242,7 +242,7 @@ test_that("No error if extra columns are supplied and extra columna present in
 
   data <- check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
   )
 
@@ -269,7 +269,7 @@ test_that("Error if name of data frame doesn't match template", {
   expect_error(
     check_data_format(
       visit = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "The names of the data supplied in the `...` argument do not match the
@@ -295,7 +295,7 @@ test_that("Passes if data frame object has different name but list name matches
 
   data <- check_data_format(
     outing = visit,
-    template = demo_template_fish_exploit,
+    template = test_template_4,
     complete = FALSE
   )
 
@@ -319,7 +319,7 @@ test_that("Errors when column set to unique is not unique", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "Column 'day' of data must be unique."
@@ -342,7 +342,7 @@ test_that("Errors when column set to pkey is not unique", {
   expect_error(
     check_data_format(
       outing = outing,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = FALSE
     ),
     regexp = "Columns 'outing_id' and 'guide' in outing must be a unique key."
@@ -382,7 +382,7 @@ test_that("Passes when 2 datasets supplied", {
   data <- check_data_format(
     outing = outing,
     capture = capture,
-    template = demo_template_fish_exploit,
+    template = test_template_4,
     complete = FALSE
   )
 
@@ -434,7 +434,7 @@ test_that("Errors when complete set to TRUE when 2 of 3 sheets provided", {
     check_data_format(
       outing = outing,
       capture = capture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = "The `complete = TRUE` argument was provided but not all data sets were
@@ -486,7 +486,7 @@ test_that("Passes when 3 data sheets are passed and complete is FALSE", {
     outing = outing,
     capture = capture,
     recapture = recapture,
-    template = demo_template_fish_exploit,
+    template = test_template_4,
     complete = FALSE
   )
 
@@ -543,7 +543,7 @@ test_that("Passes with all 4 data sheets and complete is TRUE", {
     outing = outing,
     capture = capture,
     recapture = recapture,
-    template = demo_template_fish_exploit,
+    template = test_template_4,
     complete = TRUE
   )
 
@@ -604,7 +604,7 @@ test_that(
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste(
@@ -668,7 +668,7 @@ test_that(
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste0(
@@ -729,7 +729,7 @@ test_that("Error all data sheets given, complete is TRUE, join values are bad
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste(
@@ -793,7 +793,7 @@ test_that(
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste(
@@ -847,7 +847,7 @@ test_that("Error as template has 2 tables listed in join row", {
     tbartag_number2 = c(10, 12)
   )
 
-  demo_template_fish_exploit$capture[6, 3] <- "recapture"
+  test_template_4$capture[6, 3] <- "recapture"
 
   expect_error(
     check_data_format(
@@ -855,7 +855,7 @@ test_that("Error as template has 2 tables listed in join row", {
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste(
@@ -894,7 +894,7 @@ test_that("Passes when multiple joins occur", {
     visit = visit,
     crew = crew,
     count = count,
-    template = demo_template_count,
+    template = test_template_3,
     complete = TRUE
   )
 
@@ -933,7 +933,7 @@ test_that("Errors multiple joins on first join row", {
       visit = visit,
       crew = crew,
       count = count,
-      template = demo_template_count,
+      template = test_template_3,
       complete = TRUE
     ),
     regexp = paste(
@@ -974,7 +974,7 @@ test_that("Errors multiple joins on second join row", {
       visit = visit,
       crew = crew,
       count = count,
-      template = demo_template_count,
+      template = test_template_3,
       complete = TRUE
     ),
     regexp = paste(
@@ -1030,7 +1030,7 @@ test_that(
     tbartag_number2 = c(10, 12)
   )
 
-  demo_template_fish_exploit$outing[4, 3] <- "TRUE"
+  test_template_4$outing[4, 3] <- "TRUE"
 
   expect_error(
     data <- check_data_format(
@@ -1038,7 +1038,7 @@ test_that(
       outing = outing,
       capture = capture,
       recapture = recapture,
-      template = demo_template_fish_exploit,
+      template = test_template_4,
       complete = TRUE
     ),
     regexp = paste(
