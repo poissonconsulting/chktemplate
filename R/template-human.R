@@ -53,7 +53,7 @@ template_human <- function(template) {
   join_list <- template$name[grepl("join", template$name)]
   for (i in join_list) {
     vals <- row_char(template[template$name == i, ])
-    x <- add_row(x, c("joins through", vals))
+    x <- add_row(x, c("joins to", vals))
   }
 
   tibble::as_tibble(x)
