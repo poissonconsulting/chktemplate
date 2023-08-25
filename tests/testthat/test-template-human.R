@@ -64,7 +64,7 @@ test_that("chk modifiers work for data entry template", {
     c("character", "integer", "character")
   )
 
-  expect_identical(template$name, c("label", "field", "chk", "description"))
+  expect_identical(template$name, c("description", "chk", "pkey"))
 
   expect_identical(
     as.vector(
@@ -72,12 +72,11 @@ test_that("chk modifiers work for data entry template", {
         template[1, ]
       )
     ),
-    c("label", "Date", "Tag Number 1", "Tag Number 2", "Harvested", "Comments")
-  )
-
-  expect_identical(
-    template$harvested[4],
-    "Whether the fish was harvested"
+    c(
+      "description", "Date fish was caught", "Number on tag 1",
+      "Number on tag 2", "Whether the fish was harvested",
+      "Comments about the capture or fish condition"
+    )
   )
 })
 

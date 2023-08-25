@@ -1,5 +1,4 @@
 ﻿name,date,tag_1,tag_2,harvested,comment
-label,Date,Tag Number 1,Tag Number 2,Harvested,Comments
-field,date,numeric,numeric,text,textarea
-chk,"c("""")","c(1L, NA)","c(1, NA)","c(""yes"", ""yes"", ""no"")","c("""", NA)"
 description,Date fish was caught,Number on tag 1,Number on tag 2,Whether the fish was harvested,Comments about the capture or fish condition
+chk,"c("""")","c(1L, NA)","c(1, NA)","c(""yes"", ""yes"", ""no"")","c("""", NA)"
+pkey,,,,,
