@@ -194,9 +194,13 @@
 <li>chk: range, type, missing value and set checks, see <a href="https://poissonconsulting.github.io/chk/reference/check_values.html" class="external-link">chk::chk_values</a> for how values are checked</li>
 <li>pkey: primary key, set values as <code>TRUE</code>, can be a combination of columns</li>
 <li>unique: column has to be unique, set values as <code>TRUE</code>, optional</li>
-<li>join1: place parent table name in the variable(s) that should be the <code>by</code> argument of join, optional</li>
+<li>join1: place parent table name in the variable(s) that should be the <code>by</code> argument of join, optional
+<ul>
+<li>a join row can only join to one table, to join to multiple tables add more join rows like join2, join3, etc.</li>
+<li>Check <code><a href="reference/demo_template_count.html">chktemplate::demo_template_count</a></code> template for an example of a table with multiple join rows.</li>
 </ul>
-<p>Each join row must link to the same parent table, if a table needs to join to multiple tables add a join2 row. Check <code><a href="reference/demo_template_count.html">chktemplate::demo_template_count</a></code> template for an example of a table with multiple join rows.</p>
+</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
