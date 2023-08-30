@@ -1,0 +1,17 @@
+destination: docs
+
+reference:
+- title: Convert
+  contents:
+  - '`template_human`'
+  - '`chkrow_to_expression`'
+  - '`chkrow_to_type`'
+- title: Check
+  contents:
+  - '`check_template`'
+  - '`check_data_format`'
+- title: Demo Templates
+  contents:
+  - '`demo_template_tag`'
+  - '`demo_template_count`'
+  - '`demo_template_fish_exploit`'
