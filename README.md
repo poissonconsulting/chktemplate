@@ -46,18 +46,20 @@ demo_template_fish_exploit$outing[1:4]
 #> 2 description unique Id of outing name of the site  year of outing
 #> 3         chk         c(0L, 100L)            c("") c(2000L, 2099L)
 #> 4        pkey                TRUE             <NA>            <NA>
-#> 5      unique                <NA>             <NA>            <NA>
+#> 5      unique                TRUE             <NA>            <NA>
 #> 6       join1                <NA>             site            <NA>
 # human readable version of the template
 template_human(demo_template_fish_exploit$outing[1:4])
-#> # A tibble: 5 × 4
+#> # A tibble: 7 × 4
 #>   name            outing_id                 site_name        year               
 #>   <chr>           <chr>                     <chr>            <chr>              
 #> 1 description     unique Id of outing       name of the site year of outing     
 #> 2 example         1                         Bendy Bay        2015               
 #> 3 constraint      integer between 0 and 100 any word(s)      integer between 20…
-#> 4 missing_allowed no                        no               no                 
-#> 5 unique          no                        no               no
+#> 4 missing allowed no                        no               no                 
+#> 5 primary key     yes                       no               no                 
+#> 6 unique          yes                       no               no                 
+#> 7 joins to        <NA>                      site             <NA>
 ```
 
 ### Check Data Against Template Requirements
