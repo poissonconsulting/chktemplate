@@ -91,18 +91,20 @@
 <span><span class="co">#&gt; 2 description unique Id of outing name of the site  year of outing</span></span>
 <span><span class="co">#&gt; 3         chk         c(0L, 100L)            c("") c(2000L, 2099L)</span></span>
 <span><span class="co">#&gt; 4        pkey                TRUE             &lt;NA&gt;            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5      unique                &lt;NA&gt;             &lt;NA&gt;            &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5      unique                TRUE             &lt;NA&gt;            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6       join1                &lt;NA&gt;             site            &lt;NA&gt;</span></span>
 <span><span class="co"># human readable version of the template</span></span>
 <span><span class="fu"><a href="reference/template_human.html">template_human</a></span><span class="op">(</span><span class="va">demo_template_fish_exploit</span><span class="op">$</span><span class="va">outing</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 4</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 4</span></span>
 <span><span class="co">#&gt;   name            outing_id                 site_name        year               </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                     &lt;chr&gt;            &lt;chr&gt;              </span></span>
 <span><span class="co">#&gt; 1 description     unique Id of outing       name of the site year of outing     </span></span>
 <span><span class="co">#&gt; 2 example         1                         Bendy Bay        2015               </span></span>
 <span><span class="co">#&gt; 3 constraint      integer between 0 and 100 any word(s)      integer between 20…</span></span>
-<span><span class="co">#&gt; 4 missing_allowed no                        no               no                 </span></span>
-<span><span class="co">#&gt; 5 unique          no                        no               no</span></span></code></pre></div>
+<span><span class="co">#&gt; 4 missing allowed no                        no               no                 </span></span>
+<span><span class="co">#&gt; 5 primary key     yes                       no               no                 </span></span>
+<span><span class="co">#&gt; 6 unique          yes                       no               no                 </span></span>
+<span><span class="co">#&gt; 7 joins to        &lt;NA&gt;                      site             &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="check-data-against-template-requirements">Check Data Against Template Requirements<a class="anchor" aria-label="anchor" href="#check-data-against-template-requirements"></a>
