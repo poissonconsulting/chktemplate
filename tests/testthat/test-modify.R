@@ -1,9 +1,9 @@
 test_that("chk modifiers work for fish exploit template", {
   ### chk_to_type
-  template <- demo_template_fish_exploit$outing
+  template <- test_template_4$outing
   expect_identical(
-    chkrow_to_type(template[c(1, 2, 10, 16)]),
-    c("integer", "character", "numeric")
+    chkrow_to_type(template[c(1, 2, 10, 11)]),
+    c("integer", "numeric", "character")
   )
 
   ### chk_to_missing

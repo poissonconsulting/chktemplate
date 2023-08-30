@@ -1,0 +1,4 @@
+﻿name,date,tag_1,tag_2,harvested,comment
+description,Date fish was caught,Number on tag 1,Number on tag 2,Whether the fish was harvested,Comments about the capture or fish condition
+chk,"c("""")","c(1L, NA)","c(1, NA)","c(""yes"", ""yes"", ""no"")","c("""", NA)"
+pkey,,,,,

@@ -7,11 +7,13 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/poissonconsulting/chktemplate/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions)
-[![codecov](https://codecov.io/gh/poissonconsulting/chktemplate/branch/master/graph/badge.svg?token=FR6YQNTZF3)](https://codecov.io/gh/poissonconsulting/chktemplate)
+[![R-CMD-check](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate?branch=main)
 <!-- badges: end -->
 
-Modify a `shinyupload` template to human-readable format.
+Work with data template by turning them into a human-readable format and
+confirm the data follows all the requirements.
 
 ## Installation
 
@@ -25,41 +27,147 @@ remotes::install_github("poissonconsulting/chktemplate")
 
 ## Demonstration
 
-`chktemplate` is an R package of utility functions. It is designed to be
-used in conjunction with the `shinyupload2` package.
-
-Consider the demonstration template - each data frame is converted into
-human readable format using the `template_human()` function.
-
 ``` r
 library(chktemplate)
-library(tibble)
-chktemplate::demo_template_fish_exploit$outing
-#> # A tibble: 5 × 18
-#>   name   outing_id year  month day   hour_start minute_start hour_end minute_end
-#>   <chr>  <chr>     <chr> <chr> <chr> <chr>      <chr>        <chr>    <chr>     
-#> 1 examp… 1         <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> 2 descr… unique I… year… mont… day … hour of o… minute of o… hour of… minute of…
-#> 3 chk    c(0L, 10… c(20… c(1L… c(1L… c(0L, 23L) c(0L, 59L)   c(0L, 2… c(0L, 59L)
-#> 4 pkey   TRUE      <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> 5 unique TRUE      <NA>  <NA>  <NA>  <NA>       <NA>         <NA>     <NA>      
-#> # ℹ 9 more variables: boat <chr>, guide <chr>, crew1 <chr>, crew2 <chr>,
-#> #   crew_gps <chr>, crew_camera <chr>, watertemp_degc <chr>, rod_count <chr>,
-#> #   comment <chr>
-set.seed(42)
-chktemplate::template_human(chktemplate::demo_template_fish_exploit$outing)
-#> # A tibble: 5 × 18
-#>   name   outing_id year  month day   hour_start minute_start hour_end minute_end
-#>   <chr>  <chr>     <chr> <chr> <chr> <chr>      <chr>        <chr>    <chr>     
-#> 1 descr… unique I… year… mont… day … hour of o… minute of o… hour of… minute of…
-#> 2 examp… 1         2064  9     10    3          17           16       46        
-#> 3 const… integer … inte… inte… inte… integer b… integer bet… integer… integer b…
-#> 4 missi… no        no    no    no    no         no           no       no        
-#> 5 unique yes       no    no    no    no         no           no       no        
-#> # ℹ 9 more variables: boat <chr>, guide <chr>, crew1 <chr>, crew2 <chr>,
-#> #   crew_gps <chr>, crew_camera <chr>, watertemp_degc <chr>, rod_count <chr>,
-#> #   comment <chr>
 ```
+
+### Convert Template to be Human Readable
+
+The templates need to be written in code but this is not very readable
+for a user. Use the `template_human()` function to convert the template
+into a human readable form.
+
+``` r
+# subset the first four columns so example fits on page 
+# code version of the template
+demo_template_fish_exploit$outing[1:4]
+#>          name           outing_id        site_name            year
+#> 1     example                   1        Bendy Bay            2015
+#> 2 description unique Id of outing name of the site  year of outing
+#> 3         chk         c(0L, 100L)            c("") c(2000L, 2099L)
+#> 4        pkey                TRUE             <NA>            <NA>
+#> 5      unique                <NA>             <NA>            <NA>
+#> 6       join1                <NA>             site            <NA>
+# human readable version of the template
+template_human(demo_template_fish_exploit$outing[1:4])
+#> # A tibble: 5 × 4
+#>   name            outing_id                 site_name        year               
+#>   <chr>           <chr>                     <chr>            <chr>              
+#> 1 description     unique Id of outing       name of the site year of outing     
+#> 2 example         1                         Bendy Bay        2015               
+#> 3 constraint      integer between 0 and 100 any word(s)      integer between 20…
+#> 4 missing_allowed no                        no               no                 
+#> 5 unique          no                        no               no
+```
+
+### Check Data Against Template Requirements
+
+Pass data and the template to `check_data_format()` to ensure the data
+follows all the rules and requirements of the template. It can check
+whether all columns are supplied, the type of the column, the range of
+values, the primary key, uniqueness of the column, and joins between
+tables.
+
+``` r
+outing <- data.frame(
+  outing_id = c(1L, 2L, 3L),
+  site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+  year = c(2010, 2010, 2010),
+  month = c(07, 07, 07),
+  day = c(15, 16, 17),
+  hour_start = c(9L, 11L, 8L),
+  minute_start = c(0, 0, 0),
+  guide = c("JT", "JT", "JT"),
+  rod_count = c(2, 3, 2),
+  comment = c(NA_character_, NA_character_, NA_character_)
+)
+
+data <- check_data_format(
+  outing = outing,
+  template = demo_template_fish_exploit
+)
+```
+
+Joins are only checked if all the sheet of the template are supplied and
+`complete` is set to `TRUE`.
+
+``` r
+site <- data.frame(
+    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+  )
+
+outing <- data.frame(
+  outing_id = c(1L, 2L, 3L),
+  site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+  year = c(2010, 2010, 2010),
+  month = c(7, 7, 7),
+  day = c(15, 16, 17),
+  hour_start = c(9L, 11L, 8L),
+  minute_start = c(0, 0, 0),
+  guide = c("JT", "JT", "JT"),
+  rod_count = c(2, 3, 2),
+  comment = c(NA_character_, NA_character_, NA_character_)
+)
+
+capture <- data.frame(
+  outing_id = c(1L, 2L, 3L),
+  guide = c("JT", "JT", "JT"),
+  hour = c(7L, 8L, 7L),
+  minute = c(0L, 30L, 45L),
+  easting = c(1031941, 1031971, 1031944),
+  northing = c(892421, 892451, 892429),
+  species = c("BT", "CT", "CT"),
+  forklength_mm = c(100, 700, 300),
+  weight_kg = c(0.5, 10, 4),
+  tbartag_number1 = c(78, 91, 82),
+  tbartag_number2 = c(14, 18, 21),
+  released = c("yes", "no", "no")
+)
+
+recapture <- data.frame(
+  year = c(2009, 2009),
+  month = c(10, 10),
+  day = c(14, 15),
+  angler = c("Dave John", "John Smith"),
+  contact = c("250-637-9999", "250-557-1414"),
+  tbartag_number1 = c(92, 57),
+  tbartag_number2 = c(10, 12)
+)
+
+data <- check_data_format(
+  site = site,
+  outing = outing,
+  capture = capture,
+  recapture = recapture,
+  template = demo_template_fish_exploit,
+  complete = TRUE
+)
+```
+
+## Template Requirements
+
+In the templates the first column needs to be the name column which is a
+special column. The name column sets out the rules for the template. No
+other column can be called name.
+
+Description of each row:
+
+- name: column names
+- example: sample value, optional
+- description: written description of the column
+- chk: range, type, missing value and set checks, see
+  [chk::chk_values](https://poissonconsulting.github.io/chk/reference/check_values.html)
+  for how values are checked
+- pkey: primary key, set values as `TRUE`, can be a combination of
+  columns
+- unique: column has to be unique, set values as `TRUE`, optional
+- join1: place parent table name in the variable(s) that should be the
+  `by` argument of join, optional
+
+Each join row must link to the same parent table, if a table needs to
+join to multiple tables add a join2 row. Check
+`chktemplate::demo_template_count` template for an example of a table
+with multiple join rows.
 
 ## Code of Conduct
 

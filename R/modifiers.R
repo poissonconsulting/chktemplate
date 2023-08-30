@@ -9,10 +9,10 @@ chk_to_example <- function(x) {
   y <- sort(rm_na(x))
   # if 2 values excluding NA return random within range
   if (length(y) == 2) {
-    if (class(x) == "integer") {
+    if (inherits(x, "integer")) {
       return(sample(y[1]:y[2], 1))
     }
-    if (class(x) == "numeric") {
+    if (inherits(x, "numeric")) {
       return(round(runif(1, y[1], y[2]), 1))
     }
   }
@@ -25,7 +25,8 @@ chk_to_constraint <- function(x) {
   type <- class(y)
   type <- switch(type,
     "numeric" = "number",
-    "character" = "word(s)", type
+    "character" = "word(s)",
+    type
   )
   # if 2 values excluding NA return random within range
   if (length(y) == 1) {
@@ -41,7 +42,7 @@ chk_to_constraint <- function(x) {
 }
 
 lgl_to_yesno <- function(x) {
-  if (x == TRUE & !is.na(x)) {
+  if (x == TRUE && !is.na(x)) {
     return("yes")
   }
   "no"

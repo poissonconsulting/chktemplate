@@ -1,6 +1,9 @@
-#### Saving RDA files from extdata ####
-path <- system.file("extdata/demo-template-fish-exploit.xlsx",
-                    package = "chktemplate")
+## code to prepare `data` dataset goes here
+
+path <- system.file(
+  "extdata/demo-template-fish-exploit.xlsx",
+  package = "chktemplate"
+)
 sheets <- readxl::excel_sheets(path)
 demo_template_fish_exploit <- lapply(
   sheets,
@@ -10,26 +13,22 @@ names(demo_template_fish_exploit) <- sheets
 usethis::use_data(demo_template_fish_exploit, overwrite = TRUE)
 
 
-path <- system.file("extdata/demo-template-data-entry.csv",
-                    package = "chktemplate")
-demo_template_data_entry <- read.csv(path)
-usethis::use_data(demo_template_data_entry, overwrite = TRUE)
+path <- system.file(
+  "extdata/demo-template-tag.csv",
+  package = "chktemplate"
+)
+demo_template_tag <- read.csv(path)
+usethis::use_data(demo_template_tag, overwrite = TRUE)
 
 
-path <- system.file("extdata/demo-template-logger.csv",
-                    package = "chktemplate")
-demo_template_logger<- read.csv(path)
-usethis::use_data(demo_template_logger, overwrite = TRUE)
-
-
-path <- system.file("extdata/demo-template-lines-historic.csv",
-                    package = "chktemplate")
-demo_template_lines_historic <- read.csv(path)
-usethis::use_data(demo_template_lines_historic, overwrite = TRUE)
-
-
-path <- system.file("extdata/demo-template-points-historic.csv",
-                    package = "chktemplate")
-demo_template_points_historic <- read.csv(path)
-usethis::use_data(demo_template_points_historic, overwrite = TRUE)
-
+path <- system.file(
+  "extdata/demo-template-count.xlsx",
+  package = "chktemplate"
+)
+sheets <- readxl::excel_sheets(path)
+demo_template_count <- lapply(
+  sheets,
+  function(y) readxl::read_excel(path, y)
+)
+names(demo_template_count) <- sheets
+usethis::use_data(demo_template_count, overwrite = TRUE)
