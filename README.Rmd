@@ -146,9 +146,8 @@ Description of each row:
 - pkey: primary key, set values as `TRUE`, can be a combination of columns
 - unique: column has to be unique, set values as `TRUE`, optional
 - join1: place parent table name in the variable(s) that should be the `by` argument of join, optional
-
-Each join row must link to the same parent table, if a table needs to join to multiple tables add a join2 row. 
-Check `chktemplate::demo_template_count` template for an example of a table with multiple join rows.
+  - a join row can only join to one table, to join to multiple tables add more join rows like join2, join3, etc. 
+  - Check `chktemplate::demo_template_count` template for an example of a table with multiple join rows.
 
 ## Code of Conduct
 
