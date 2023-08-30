@@ -4,11 +4,11 @@ Version: 0.1.0
 Authors@R: 
     c(
     person("Seb", "Dalgarno", , "seb@poissonconsulting.ca", 
-            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3658-4517")), 
+            role = c("aut"), comment = c(ORCID = "0000-0002-3658-4517")), 
     person("Joe", "Thorley", , "joe@poissonconsulting.ca", 
             role = c("ctb"), comment = c(ORCID = "0000-0002-7683-4592")),
     person("Ayla", "Pearson", , "ayla@poissonconsulting.ca", 
-            role = c("aut"), comment = c(ORCID = "0000-0001-7388-1222")),
+            role = c("aut",  "cre"), comment = c(ORCID = "0000-0001-7388-1222")),
     person(given = "Poisson Consulting", role = c("cph", "fnd"))
     )
 Description: Modify a data template to be human-readable and check the data
