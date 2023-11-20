@@ -27,6 +27,130 @@ test_that("Pass when single table and all good values are passed", {
   expect_identical(data$outing$day, c(15L, 16L, 17L))
 })
 
+test_that(
+  paste(
+    "Errors when character passed to logical `complete` argument"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+    )
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      data <- check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = "TRUE",
+        join = TRUE
+      ),
+      regexp = "`complete` must be a flag \\(TRUE or FALSE\\)."
+    )
+  }
+)
+
+test_that(
+  paste(
+    "Errors when character passed to logical `join` argument"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+    )
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      data <- check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = "yes"
+      ),
+      regexp = "`join` must be a flag \\(TRUE or FALSE\\)."
+    )
+  }
+)
+
 test_that("Error when only 1 sheet is supplied in template of 3 sheets when
           complete is set to TRUE", {
   outing <- data.frame(
@@ -241,9 +365,9 @@ test_that("No error if extra columns are supplied and extra columna present in
   )
 
   data <- check_data_format(
-      outing = outing,
-      template = test_template_4,
-      complete = FALSE
+    outing = outing,
+    template = test_template_4,
+    complete = FALSE
   )
 
   expect_type(data, "list")
@@ -376,7 +500,6 @@ test_that("Passes when 2 datasets supplied", {
     tbartag_number1 = c(78, 91, 82),
     tbartag_number2 = c(14, 18, 21),
     released = c("yes", "no", "no")
-
   )
 
   data <- check_data_format(
@@ -495,7 +618,7 @@ test_that("Passes when 3 data sheets are passed and complete is FALSE", {
   expect_identical(length(data), 3L)
 })
 
-test_that("Passes with all 4 data sheets and complete is TRUE", {
+test_that("Passes with all 4 data sheets and complete and join are TRUE", {
   site <- data.frame(
     site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
   )
@@ -544,7 +667,8 @@ test_that("Passes with all 4 data sheets and complete is TRUE", {
     capture = capture,
     recapture = recapture,
     template = test_template_4,
-    complete = TRUE
+    complete = TRUE,
+    join = TRUE
   )
 
   expect_type(data, "list")
@@ -552,17 +676,15 @@ test_that("Passes with all 4 data sheets and complete is TRUE", {
   expect_identical(length(data), 4L)
 })
 
-test_that(
-  paste(
-    "Error when all data sheets given, complete is TRUE, join values are bad",
-    "in capture table outing id"), {
+test_that("Passes with all 4 data sheets with and complete is TRUE and join
+          is FALSE, with bad joins", {
   site <- data.frame(
     site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
   )
 
   outing <- data.frame(
     outing_id = c(1L, 2L, 3L),
-    site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+    site_name = c("Pretty Bay", "Pretty Bay", "Blue Bay"),
     year = c(2010, 2010, 2010),
     month = c(7, 7, 7),
     day = c(15, 16, 17),
@@ -574,8 +696,8 @@ test_that(
   )
 
   capture <- data.frame(
-    outing_id = c(1L, 5L, 7L),
-    guide = c("JT", "JT", "JY"),
+    outing_id = c(1L, 2L, 3L),
+    guide = c("JT", "JT", "JT"),
     hour = c(7L, 8L, 7L),
     minute = c(0L, 30L, 45L),
     easting = c(1031941, 1031971, 1031944),
@@ -598,89 +720,216 @@ test_that(
     tbartag_number2 = c(10, 12)
   )
 
+  data <- check_data_format(
+    site = site,
+    outing = outing,
+    capture = capture,
+    recapture = recapture,
+    template = test_template_4,
+    complete = TRUE,
+    join = FALSE
+  )
+
+  expect_type(data, "list")
+  expect_s3_class(data$outing, "data.frame")
+  expect_identical(length(data), 4L)
+})
+
+test_that("Passes with just 2 sheets with complete FALSE and join TRUE", {
+  site <- data.frame(
+    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+  )
+
+  outing <- data.frame(
+    outing_id = c(1L, 2L, 3L),
+    site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    hour_start = c(9L, 11L, 8L),
+    minute_start = c(0, 0, 0),
+    guide = c("JT", "JT", "JT"),
+    rod_count = c(2, 3, 2),
+    comment = c(NA_character_, NA_character_, NA_character_)
+  )
+
+  data <- check_data_format(
+    site = site,
+    outing = outing,
+    template = test_template_4,
+    complete = FALSE,
+    join = TRUE
+  )
+
+  expect_type(data, "list")
+  expect_s3_class(data$outing, "data.frame")
+  expect_identical(length(data), 2L)
+})
+
+test_that("Errors with complete FALSE and join TRUE, with missing join table", {
+  outing <- data.frame(
+    outing_id = c(1L, 2L, 3L),
+    site_name = c("Pretty Bay", "Pretty Bay", "Blue Bay"),
+    year = c(2010, 2010, 2010),
+    month = c(7, 7, 7),
+    day = c(15, 16, 17),
+    hour_start = c(9L, 11L, 8L),
+    minute_start = c(0, 0, 0),
+    guide = c("JT", "JT", "JT"),
+    rod_count = c(2, 3, 2),
+    comment = c(NA_character_, NA_character_, NA_character_)
+  )
+
   expect_error(
     check_data_format(
-      site = site,
       outing = outing,
-      capture = capture,
-      recapture = recapture,
       template = test_template_4,
-      complete = TRUE
+      complete = FALSE,
+      join = TRUE
     ),
     regexp = paste(
-      "All 'outing_id', 'guide' values in the capture table must be in the",
-      "outing table. The following rows\\(s\\) in the capture table are",
-      "causing the issue\\: 2, 3."
+      "The pkey values in the parent table must match the columns listed in",
+      "the child table in the join row"
     )
   )
 })
 
 test_that(
   paste(
-    "Error all data sheets given, complete is TRUE, join values are bad in",
-    "capture table guide column"
-  ), {
-  site <- data.frame(
-    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
-  )
-
-  outing <- data.frame(
-    outing_id = c(1L, 2L, 3L),
-    site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
-    year = c(2010, 2010, 2010),
-    month = c(7, 7, 7),
-    day = c(15, 16, 17),
-    hour_start = c(9L, 11L, 8L),
-    minute_start = c(0, 0, 0),
-    guide = c("JT", "JT", "JT"),
-    rod_count = c(2, 3, 2),
-    comment = c(NA_character_, NA_character_, NA_character_)
-  )
-
-  capture <- data.frame(
-    outing_id = c(1L, 2L, 3L),
-    guide = c("JT", "JT", "JY"),
-    hour = c(7L, 8L, 7L),
-    minute = c(0L, 30L, 45L),
-    easting = c(1031941, 1031971, 1031944),
-    northing = c(892421, 892451, 892429),
-    species = c("BT", "CT", "CT"),
-    forklength_mm = c(100, 700, 300),
-    weight_kg = c(0.5, 10, 4),
-    tbartag_number1 = c(78, 91, 82),
-    tbartag_number2 = c(14, 18, 21),
-    released = c("yes", "no", "no")
-  )
-
-  recapture <- data.frame(
-    year = c(2009, 2009),
-    month = c(10, 10),
-    day = c(14, 15),
-    angler = c("Dave John", "John Smith"),
-    contact = c("250-637-9999", "250-557-1414"),
-    tbartag_number1 = c(92, 57),
-    tbartag_number2 = c(10, 12)
-  )
-
-  expect_error(
-    check_data_format(
-      site = site,
-      outing = outing,
-      capture = capture,
-      recapture = recapture,
-      template = test_template_4,
-      complete = TRUE
-    ),
-    regexp = paste0(
-      "All 'outing_id', 'guide' values in the capture table must be in the ",
-      "outing table. The following rows\\(s\\) in the capture table are ",
-      "causing the issue\\: 3."
+    "Error when all data sheets given, complete and join are TRUE, join",
+    "values are bad in capture table outing id"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
     )
-  )
-})
 
-test_that("Error all data sheets given, complete is TRUE, join values are bad
-          in site table", {
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 5L, 7L),
+      guide = c("JT", "JT", "JY"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = TRUE
+      ),
+      regexp = paste(
+        "All 'outing_id', 'guide' values in the capture table must be in the",
+        "outing table. The following rows\\(s\\) in the capture table are",
+        "causing the issue\\: 2, 3."
+      )
+    )
+  }
+)
+
+test_that(
+  paste(
+    "Error all data sheets given, complete and join are TRUE, join values",
+    "are bad in capture table guide column"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+    )
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JY"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = TRUE
+      ),
+      regexp = paste0(
+        "All 'outing_id', 'guide' values in the capture table must be in the ",
+        "outing table. The following rows\\(s\\) in the capture table are ",
+        "causing the issue\\: 3."
+      )
+    )
+  }
+)
+
+test_that("Error all data sheets given, complete and join are TRUE, join
+          values are bad in site table", {
   site <- data.frame(
     site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
   )
@@ -730,7 +979,8 @@ test_that("Error all data sheets given, complete is TRUE, join values are bad
       capture = capture,
       recapture = recapture,
       template = test_template_4,
-      complete = TRUE
+      complete = TRUE,
+      join = TRUE
     ),
     regexp = paste(
       "All 'site_name' values in the outing table must be in the site table.",
@@ -742,67 +992,70 @@ test_that("Error all data sheets given, complete is TRUE, join values are bad
 
 test_that(
   paste(
-    "Error all data sheets given, complete is TRUE, join values are bad in",
-    "site table"
-  ), {
-  site <- data.frame(
-    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
-  )
-
-  outing <- data.frame(
-    outing_id = c(1L, 2L, 3L),
-    site_name = c("Pretty Bay", "Pretty bay", "Pretty Bay"),
-    year = c(2010, 2010, 2010),
-    month = c(7, 7, 7),
-    day = c(15, 16, 17),
-    hour_start = c(9L, 11L, 8L),
-    minute_start = c(0, 0, 0),
-    guide = c("JT", "JT", "JT"),
-    rod_count = c(2, 3, 2),
-    comment = c(NA_character_, NA_character_, NA_character_)
-  )
-
-  capture <- data.frame(
-    outing_id = c(1L, 5L, 7L),
-    guide = c("JT", "JT", "JT"),
-    hour = c(7L, 8L, 7L),
-    minute = c(0L, 30L, 45L),
-    easting = c(1031941, 1031971, 1031944),
-    northing = c(892421, 892451, 892429),
-    species = c("BT", "CT", "CT"),
-    forklength_mm = c(100, 700, 300),
-    weight_kg = c(0.5, 10, 4),
-    tbartag_number1 = c(78, 91, 82),
-    tbartag_number2 = c(14, 18, 21),
-    released = c("yes", "no", "no")
-  )
-
-  recapture <- data.frame(
-    year = c(2009, 2009),
-    month = c(10, 10),
-    day = c(14, 15),
-    angler = c("Dave John", "John Smith"),
-    contact = c("250-637-9999", "250-557-1414"),
-    tbartag_number1 = c(92, 57),
-    tbartag_number2 = c(10, 12)
-  )
-
-  expect_error(
-    check_data_format(
-      site = site,
-      outing = outing,
-      capture = capture,
-      recapture = recapture,
-      template = test_template_4,
-      complete = TRUE
-    ),
-    regexp = paste(
-      "All 'site_name' values in the outing table must be in the site table.",
-      "The following rows\\(s\\) in the outing table are causing the",
-      "issue\\: 2."
+    "Error all data sheets given, complete and join are TRUE, join values are",
+    "bad in site table"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
     )
-  )
-})
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 5L, 7L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = TRUE
+      ),
+      regexp = paste(
+        "All 'site_name' values in the outing table must be in the site table.",
+        "The following rows\\(s\\) in the outing table are causing the",
+        "issue\\: 2."
+      )
+    )
+  }
+)
 
 test_that("Error as template has 2 tables listed in join row", {
   site <- data.frame(
@@ -856,7 +1109,8 @@ test_that("Error as template has 2 tables listed in join row", {
       capture = capture,
       recapture = recapture,
       template = test_template_4,
-      complete = TRUE
+      complete = TRUE,
+      join = TRUE
     ),
     regexp = paste(
       "Only 1 table can be listed per join row. Ensure the join row of the",
@@ -866,7 +1120,6 @@ test_that("Error as template has 2 tables listed in join row", {
 })
 
 test_that("Passes when multiple joins occur", {
-
   visit <- data.frame(
     year = c(2010, 2010, 2010),
     month = c(7, 7, 7),
@@ -895,7 +1148,8 @@ test_that("Passes when multiple joins occur", {
     crew = crew,
     count = count,
     template = test_template_3,
-    complete = TRUE
+    complete = TRUE,
+    join = TRUE
   )
 
   expect_type(data, "list")
@@ -904,7 +1158,6 @@ test_that("Passes when multiple joins occur", {
 })
 
 test_that("Errors multiple joins on first join row", {
-
   visit <- data.frame(
     year = c(2010, 2010, 2010),
     month = c(7, 7, 7),
@@ -934,7 +1187,8 @@ test_that("Errors multiple joins on first join row", {
       crew = crew,
       count = count,
       template = test_template_3,
-      complete = TRUE
+      complete = TRUE,
+      join = TRUE
     ),
     regexp = paste(
       "All 'year', 'month', 'day', 'site' values in the count table must be",
@@ -945,7 +1199,6 @@ test_that("Errors multiple joins on first join row", {
 })
 
 test_that("Errors multiple joins on second join row", {
-
   visit <- data.frame(
     year = c(2010, 2010, 2010),
     month = c(7, 7, 7),
@@ -975,7 +1228,8 @@ test_that("Errors multiple joins on second join row", {
       crew = crew,
       count = count,
       template = test_template_3,
-      complete = TRUE
+      complete = TRUE,
+      join = TRUE
     ),
     regexp = paste(
       "All 'crew1' values in the count table must be in the crew table.",
@@ -987,63 +1241,66 @@ test_that("Errors multiple joins on second join row", {
 test_that(
   paste(
     "Errors when pkey in parent table is different then join by values listed"
-  ), {
-  site <- data.frame(
-    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
-  )
-
-  outing <- data.frame(
-    outing_id = c(1L, 2L, 3L),
-    site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
-    year = c(2010, 2010, 2010),
-    month = c(7, 7, 7),
-    day = c(15, 16, 17),
-    hour_start = c(9L, 11L, 8L),
-    minute_start = c(0, 0, 0),
-    guide = c("JT", "JT", "JT"),
-    rod_count = c(2, 3, 2),
-    comment = c(NA_character_, NA_character_, NA_character_)
-  )
-
-  capture <- data.frame(
-    outing_id = c(1L, 2L, 3L),
-    guide = c("JT", "JT", "JT"),
-    hour = c(7L, 8L, 7L),
-    minute = c(0L, 30L, 45L),
-    easting = c(1031941, 1031971, 1031944),
-    northing = c(892421, 892451, 892429),
-    species = c("BT", "CT", "CT"),
-    forklength_mm = c(100, 700, 300),
-    weight_kg = c(0.5, 10, 4),
-    tbartag_number1 = c(78, 91, 82),
-    tbartag_number2 = c(14, 18, 21),
-    released = c("yes", "no", "no")
-  )
-
-  recapture <- data.frame(
-    year = c(2009, 2009),
-    month = c(10, 10),
-    day = c(14, 15),
-    angler = c("Dave John", "John Smith"),
-    contact = c("250-637-9999", "250-557-1414"),
-    tbartag_number1 = c(92, 57),
-    tbartag_number2 = c(10, 12)
-  )
-
-  test_template_4$outing[4, 3] <- "TRUE"
-
-  expect_error(
-    data <- check_data_format(
-      site = site,
-      outing = outing,
-      capture = capture,
-      recapture = recapture,
-      template = test_template_4,
-      complete = TRUE
-    ),
-    regexp = paste(
-      "The pkey values in the parent table must match the columns listed in",
-      "the child table in the join row"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
     )
-  )
-})
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    test_template_4$outing[4, 3] <- "TRUE"
+
+    expect_error(
+      data <- check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = TRUE
+      ),
+      regexp = paste(
+        "The pkey values in the parent table must match the columns listed in",
+        "the child table in the join row"
+      )
+    )
+  }
+)

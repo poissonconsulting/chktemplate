@@ -8,16 +8,18 @@
 #' @param template A list of named data frames that make up the template
 #' @param complete A logical indicating if all tables present in the template
 #'   need to be supplied in the ... argument. If TRUE all tables need to be
-#'   provided in ... argument, default is set to FALSE. This must be set to TRUE
-#'   to check joins between the tables.
+#'   provided in ... argument, default is set to FALSE.
+#' @param join A logical indicating if joins between the tables should be
+#'   checked. If TRUE joins are checked, default is set to FALSE.
 #'
 #' @details The template argument should contain all the sheets in the template
 #' while the ... argument can be which ever set of data tables you want to check
 #' against the template. This means either one, several or all the data tables
 #' can be checked against the template.
 #'
-#' If complete is set to TRUE then all the data tables need to be supplied and
-#' the function can check joins between the tables.
+#' If complete is set to TRUE then all the data tables need to be supplied.
+#' If join is set to TRUE then the joins between the provided tables are
+#' checked.
 #'
 #' @return A list of named data frames of the data
 #' @export
@@ -27,22 +29,25 @@
 #' check_data_format(
 #'   outing = outing,
 #'   template = demo_template_fish_exploit,
-#'   complete = FALSE
+#'   complete = FALSE,
+#'   join = FALSE
 #' )
 #'
 #' check_data_format(
-#'   site = site
+#'   site = site,
 #'   outing = outing,
 #'   capture = capture,
 #'   recapture = recapture,
 #'   template = demo_template_fish_exploit,
-#'   complete = TRUE
+#'   complete = TRUE,
+#'   join = TRUE
 #' )
 #' }
-check_data_format <- function(..., template, complete = FALSE) {
+check_data_format <- function(..., template, complete = FALSE, join = FALSE) {
   chk::chk_used(...)
   chk::chk_list(template)
-  chk::chk_lgl(complete)
+  chk::chk_flag(complete)
+  chk::chk_flag(join)
 
   data <- list(...)
   template_names <- names(template)
@@ -63,7 +68,6 @@ check_data_format <- function(..., template, complete = FALSE) {
   data <- check_template_ranges(data, template)
 
   # if complete = TRUE then must have all names represented
-  # if complete = TRUE then check joins
   if (complete) {
     if (!all(template_names %in% data_names)) {
       chk::abort_chk(
@@ -72,9 +76,14 @@ check_data_format <- function(..., template, complete = FALSE) {
         `...` argument"
       )
     }
+  }
+  # if join = TRUE then check joins
+  if (join) {
+    template <- template[data_names]
     # check the joins
     check_template_joins(data, template)
   }
+
   data
 }
 
@@ -235,7 +244,6 @@ check_template_join <- function(data, template, sheet, join_num) {
       data[[joins[[sheet]]$tbl_x]],
       by = c(joins[[sheet]]$by)
     )) {
-
       data[[joins[[sheet]]$tbl_y]]$id <- 1:nrow(data[[joins[[sheet]]$tbl_y]])
 
       no_match <- dplyr::anti_join(

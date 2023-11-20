@@ -4,7 +4,7 @@
 \alias{check_data_format}
 \title{Check Data follow Required Format as per the Template}
 \usage{
-check_data_format(..., template, complete = FALSE)
+check_data_format(..., template, complete = FALSE, join = FALSE)
 }
 \arguments{
 \item{...}{A list of named data frames of the data}
@@ -13,8 +13,10 @@ check_data_format(..., template, complete = FALSE)
 
 \item{complete}{A logical indicating if all tables present in the template
 need to be supplied in the ... argument. If TRUE all tables need to be
-provided in ... argument, default is set to FALSE. This must be set to TRUE
-to check joins between the tables.}
+provided in ... argument, default is set to FALSE.}
+
+\item{join}{A logical indicating if joins between the tables should be
+checked. If TRUE joins are checked, default is set to FALSE.}
 }
 \value{
 A list of named data frames of the data
@@ -30,24 +32,27 @@ while the ... argument can be which ever set of data tables you want to check
 against the template. This means either one, several or all the data tables
 can be checked against the template.
 
-If complete is set to TRUE then all the data tables need to be supplied and
-the function can check joins between the tables.
+If complete is set to TRUE then all the data tables need to be supplied.
+If join is set to TRUE then the joins between the provided tables are
+checked.
 }
 \examples{
 \dontrun{
 check_data_format(
   outing = outing,
   template = demo_template_fish_exploit,
-  complete = FALSE
+  complete = FALSE,
+  join = FALSE
 )
 
 check_data_format(
-  site = site
+  site = site,
   outing = outing,
   capture = capture,
   recapture = recapture,
   template = demo_template_fish_exploit,
-  complete = TRUE
+  complete = TRUE,
+  join = TRUE
 )
 }
 }
