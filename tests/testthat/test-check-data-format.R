@@ -84,7 +84,7 @@ test_that(
         complete = "TRUE",
         join = TRUE
       ),
-      regexp = "`complete` must be a logical scalar \\(TRUE, FALSE or NA\\)."
+      regexp = "`complete` must be a flag \\(TRUE or FALSE\\)."
     )
   }
 )
@@ -146,7 +146,7 @@ test_that(
         complete = TRUE,
         join = "yes"
       ),
-      regexp = "`join` must be a logical scalar \\(TRUE, FALSE or NA\\)."
+      regexp = "`join` must be a flag \\(TRUE or FALSE\\)."
     )
   }
 )
