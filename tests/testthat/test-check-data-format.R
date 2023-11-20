@@ -27,6 +27,130 @@ test_that("Pass when single table and all good values are passed", {
   expect_identical(data$outing$day, c(15L, 16L, 17L))
 })
 
+test_that(
+  paste(
+    "Errors when character passed to logical `complete` argument"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+    )
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      data <- check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = "TRUE",
+        join = TRUE
+      ),
+      regexp = "`complete` must be a logical scalar \\(TRUE, FALSE or NA\\)."
+    )
+  }
+)
+
+test_that(
+  paste(
+    "Errors when character passed to logical `join` argument"
+  ),
+  {
+    site <- data.frame(
+      site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+    )
+
+    outing <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      site_name = c("Pretty Bay", "Pretty Bay", "Pretty Bay"),
+      year = c(2010, 2010, 2010),
+      month = c(7, 7, 7),
+      day = c(15, 16, 17),
+      hour_start = c(9L, 11L, 8L),
+      minute_start = c(0, 0, 0),
+      guide = c("JT", "JT", "JT"),
+      rod_count = c(2, 3, 2),
+      comment = c(NA_character_, NA_character_, NA_character_)
+    )
+
+    capture <- data.frame(
+      outing_id = c(1L, 2L, 3L),
+      guide = c("JT", "JT", "JT"),
+      hour = c(7L, 8L, 7L),
+      minute = c(0L, 30L, 45L),
+      easting = c(1031941, 1031971, 1031944),
+      northing = c(892421, 892451, 892429),
+      species = c("BT", "CT", "CT"),
+      forklength_mm = c(100, 700, 300),
+      weight_kg = c(0.5, 10, 4),
+      tbartag_number1 = c(78, 91, 82),
+      tbartag_number2 = c(14, 18, 21),
+      released = c("yes", "no", "no")
+    )
+
+    recapture <- data.frame(
+      year = c(2009, 2009),
+      month = c(10, 10),
+      day = c(14, 15),
+      angler = c("Dave John", "John Smith"),
+      contact = c("250-637-9999", "250-557-1414"),
+      tbartag_number1 = c(92, 57),
+      tbartag_number2 = c(10, 12)
+    )
+
+    expect_error(
+      data <- check_data_format(
+        site = site,
+        outing = outing,
+        capture = capture,
+        recapture = recapture,
+        template = test_template_4,
+        complete = TRUE,
+        join = "yes"
+      ),
+      regexp = "`join` must be a logical scalar \\(TRUE, FALSE or NA\\)."
+    )
+  }
+)
+
 test_that("Error when only 1 sheet is supplied in template of 3 sheets when
           complete is set to TRUE", {
   outing <- data.frame(
