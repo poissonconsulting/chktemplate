@@ -47,6 +47,7 @@ check_data_format <- function(..., template, complete = FALSE, join = FALSE) {
   chk::chk_used(...)
   chk::chk_list(template)
   chk::chk_lgl(complete)
+  chk::chk_lgl(join)
 
   data <- list(...)
   template_names <- names(template)
