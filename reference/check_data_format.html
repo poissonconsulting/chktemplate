@@ -51,7 +51,7 @@ follows the format outlined in the template.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_data_format</span><span class="op">(</span><span class="va">...</span>, <span class="va">template</span>, complete <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_data_format</span><span class="op">(</span><span class="va">...</span>, <span class="va">template</span>, complete <span class="op">=</span> <span class="cn">FALSE</span>, join <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -67,8 +67,12 @@ follows the format outlined in the template.</p>
 <dt>complete</dt>
 <dd><p>A logical indicating if all tables present in the template
 need to be supplied in the ... argument. If TRUE all tables need to be
-provided in ... argument, default is set to FALSE. This must be set to TRUE
-to check joins between the tables.</p></dd>
+provided in ... argument, default is set to FALSE.</p></dd>
+
+
+<dt>join</dt>
+<dd><p>A logical indicating if joins between the tables should be
+checked. If TRUE joins are checked, default is set to FALSE.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -83,13 +87,32 @@ to check joins between the tables.</p></dd>
 while the ... argument can be which ever set of data tables you want to check
 against the template. This means either one, several or all the data tables
 can be checked against the template.</p>
-<p>If complete is set to TRUE then all the data tables need to be supplied and
-the function can check joins between the tables.</p>
+<p>If complete is set to TRUE then all the data tables need to be supplied.
+If join is set to TRUE then the joins between the provided tables are
+checked.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">check_data_format</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  outing <span class="op">=</span> <span class="va">outing</span>,</span></span>
+<span class="r-in"><span>  template <span class="op">=</span> <span class="va">demo_template_fish_exploit</span>,</span></span>
+<span class="r-in"><span>  complete <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  join <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">check_data_format</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  site <span class="op">=</span> <span class="va">site</span>,</span></span>
+<span class="r-in"><span>  outing <span class="op">=</span> <span class="va">outing</span>,</span></span>
+<span class="r-in"><span>  capture <span class="op">=</span> <span class="va">capture</span>,</span></span>
+<span class="r-in"><span>  recapture <span class="op">=</span> <span class="va">recapture</span>,</span></span>
+<span class="r-in"><span>  template <span class="op">=</span> <span class="va">demo_template_fish_exploit</span>,</span></span>
+<span class="r-in"><span>  complete <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  join <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
