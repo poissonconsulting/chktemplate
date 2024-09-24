@@ -35,7 +35,7 @@ test_that("Tag internal template is same as extdata file", {
     "extdata/demo-template-tag.csv",
     package = "chktemplate"
   )
-  expect_warning(template_excel <- read.csv(path), regex = "incomplete final line")
+  expect_warning(template_excel <- read.csv(path), regexp = "incomplete final line")
 
   expect_identical(chktemplate::demo_template_tag, template_excel)
   expect_type(chktemplate::demo_template_tag, "list")
