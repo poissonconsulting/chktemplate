@@ -244,7 +244,7 @@ check_template_join <- function(data, template, sheet, join_num) {
       data[[joins[[sheet]]$tbl_x]],
       by = c(joins[[sheet]]$by)
     )) {
-      data[[joins[[sheet]]$tbl_y]]$id <- 1:nrow(data[[joins[[sheet]]$tbl_y]])
+      data[[joins[[sheet]]$tbl_y]]$id <- seq_len(nrow(data[[joins[[sheet]]$tbl_y]]))
 
       no_match <- dplyr::anti_join(
         data[[joins[[sheet]]$tbl_y]],
