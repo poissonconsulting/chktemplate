@@ -9,7 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate?branch=main)
+coverage](https://codecov.io/gh/poissonconsulting/chktemplate/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate)
 <!-- badges: end -->
 
 Work with data template by turning them into a human-readable format and
