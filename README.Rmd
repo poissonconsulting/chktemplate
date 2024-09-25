@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/chktemplate/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/poissonconsulting/chktemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/poissonconsulting/chktemplate/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/chktemplate)
 <!-- badges: end -->
 
 Work with data template by turning them into a human-readable format and confirm the data follows all the requirements.
@@ -44,7 +44,7 @@ The templates need to be written in code but this is not very readable for a use
 Use the `template_human()` function to convert the template into a human readable form. 
 
 ```{r}
-# subset the first four columns so example fits on page 
+# subset the first four columns so example fits on page
 # code version of the template
 demo_template_fish_exploit$outing[1:4]
 # human readable version of the template
@@ -80,8 +80,8 @@ The `complete` argument checks if all tables are present.
 
 ```{r}
 site <- data.frame(
-    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
-  )
+  site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+)
 
 outing <- data.frame(
   outing_id = c(1L, 2L, 3L),
@@ -135,8 +135,8 @@ Joins are only checked if `join` is set to `TRUE`.
 
 ```{r}
 site <- data.frame(
-    site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
-  )
+  site_name = c("Pretty Bay", "Ugly Bay", "Green Bay")
+)
 
 outing <- data.frame(
   outing_id = c(1L, 2L, 3L),
