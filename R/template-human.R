@@ -13,7 +13,6 @@
 #' template_human(demo_template_count$visit)
 #' template_human(demo_template_fish_exploit$capture)
 template_human <- function(template) {
-
   check_template(template)
 
   x <- as.data.frame(template[template$name == "description", ])
