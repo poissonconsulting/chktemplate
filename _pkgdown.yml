@@ -1,4 +1,3 @@
-destination: docs
 
 reference:
 - title: Convert
@@ -15,3 +14,6 @@ reference:
   - '`demo_template_tag`'
   - '`demo_template_count`'
   - '`demo_template_fish_exploit`'
+url: https://poissonconsulting.github.io/chktemplate/
+template:
+  package: poissontemplate
