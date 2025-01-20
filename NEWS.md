@@ -2,12 +2,7 @@
 
 # chktemplate 0.2.0 (2025-01-20)
 
-- Merge pull request #16 from poissonconsulting/upkeep.
-
-  Upkeep
-
-- Merge branch 'main' of github.com:poissonconsulting/chktemplate.
-
+- Update character options so all options are displayed instead of ten options and having additional ones hidden by ...
 
 # chktemplate 0.1.1 (2023-11-20)
 
