@@ -11,7 +11,7 @@ between_p <- function(type, y) {
 }
 
 oneof_p <- function(y) {
-  p("one of", cc(y, " or "))
+  p("one of", cc(y, " or ", ellipsis = Inf))
 }
 
 add_row <- function(x, y) {
