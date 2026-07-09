@@ -12,8 +12,13 @@ test_that("template modification works fish exploit", {
   expect_identical(
     x$name,
     c(
-      "description", "example", "constraint", "missing allowed", "primary key",
-      "unique", "joins to"
+      "description",
+      "example",
+      "constraint",
+      "missing allowed",
+      "primary key",
+      "unique",
+      "joins to"
     )
   )
   expect_identical(colnames(x), colnames(template))
@@ -73,8 +78,11 @@ test_that("chk modifiers work for data entry template", {
       )
     ),
     c(
-      "description", "Date fish was caught", "Number on tag 1",
-      "Number on tag 2", "Whether the fish was harvested",
+      "description",
+      "Date fish was caught",
+      "Number on tag 1",
+      "Number on tag 2",
+      "Whether the fish was harvested",
       "Comments about the capture or fish condition"
     )
   )
@@ -90,8 +98,14 @@ test_that("template modification works count with more then one join", {
   expect_identical(
     x$name,
     c(
-      "description", "example", "constraint", "missing allowed", "primary key",
-      "unique", "joins to", "joins to"
+      "description",
+      "example",
+      "constraint",
+      "missing allowed",
+      "primary key",
+      "unique",
+      "joins to",
+      "joins to"
     )
   )
   expect_identical(colnames(x), colnames(template))
