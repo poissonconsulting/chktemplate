@@ -88,9 +88,6 @@ check_data_format <- function(..., template, complete = FALSE, join = FALSE) {
 }
 
 
-
-
-
 check_column_types <- function(data, template) {
   for (i in names(data)) {
     data[[i]] <- check_types(data[[i]], template[[i]])
@@ -129,8 +126,10 @@ safe_as_integer <- function(x, name) {
   bad <- unique(x[!is.na(x) & suppressWarnings(is.na(as.integer(x)))])
   if (length(bad) > 0) {
     chk::abort_chk(paste0(
-      "The following values in column '", name,
-      "' should be a integer: ", chk::cc(bad, " and ")
+      "The following values in column '",
+      name,
+      "' should be a integer: ",
+      chk::cc(bad, " and ")
     ))
   }
   as.integer(x)
@@ -140,8 +139,10 @@ safe_as_numeric <- function(x, name) {
   bad <- unique(x[!is.na(x) & suppressWarnings(is.na(as.numeric(x)))])
   if (length(bad) > 0) {
     chk::abort_chk(paste0(
-      "The following values in column '", name,
-      "' should be a number: ", chk::cc(bad, " and ")
+      "The following values in column '",
+      name,
+      "' should be a number: ",
+      chk::cc(bad, " and ")
     ))
   }
   as.numeric(x)
@@ -220,7 +221,9 @@ check_template_join <- function(data, template, sheet, join_num) {
       )
     }
 
-    parent_pkey <- as.vector(template[[tbl_x]][template[[tbl_x]]$name == "pkey", ][-1])
+    parent_pkey <- as.vector(template[[tbl_x]][
+      template[[tbl_x]]$name == "pkey",
+    ][-1])
     parent_pkey <- names(parent_pkey[!is.na(parent_pkey)])
     if (!identical(join_by, parent_pkey)) {
       stop(
@@ -239,12 +242,16 @@ check_template_join <- function(data, template, sheet, join_num) {
 
     names(joins) <- sheet
 
-    if (!chk::vld_join(
-      data[[joins[[sheet]]$tbl_y]],
-      data[[joins[[sheet]]$tbl_x]],
-      by = c(joins[[sheet]]$by)
-    )) {
-      data[[joins[[sheet]]$tbl_y]]$id <- seq_len(nrow(data[[joins[[sheet]]$tbl_y]]))
+    if (
+      !chk::vld_join(
+        data[[joins[[sheet]]$tbl_y]],
+        data[[joins[[sheet]]$tbl_x]],
+        by = c(joins[[sheet]]$by)
+      )
+    ) {
+      data[[joins[[sheet]]$tbl_y]]$id <- seq_len(nrow(data[[
+        joins[[sheet]]$tbl_y
+      ]]))
 
       no_match <- dplyr::anti_join(
         data[[joins[[sheet]]$tbl_y]],
@@ -255,10 +262,17 @@ check_template_join <- function(data, template, sheet, join_num) {
         dplyr::pull()
 
       chk::abort_chk(
-        "All ", chk::cc(joins[[sheet]]$by), " values in the ", joins[[sheet]]$tbl_y,
-        " table must be in the ", joins[[sheet]]$tbl_x,
-        " table. The following rows(s) in the ", joins[[sheet]]$tbl_y, " table ",
-        "are causing the issue: ", chk::cc(no_match)
+        "All ",
+        chk::cc(joins[[sheet]]$by),
+        " values in the ",
+        joins[[sheet]]$tbl_y,
+        " table must be in the ",
+        joins[[sheet]]$tbl_x,
+        " table. The following rows(s) in the ",
+        joins[[sheet]]$tbl_y,
+        " table ",
+        "are causing the issue: ",
+        chk::cc(no_match)
       )
     }
   }

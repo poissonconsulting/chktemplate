@@ -23,7 +23,10 @@ test_template_4 <- lapply(
 names(test_template_4) <- sheets
 
 usethis::use_data(
-  test_template_1, test_template_2, test_template_3, test_template_4,
+  test_template_1,
+  test_template_2,
+  test_template_3,
+  test_template_4,
   overwrite = TRUE,
   internal = TRUE
 )
